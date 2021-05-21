@@ -1,5 +1,7 @@
 grammar PsiCoder;
 
+//gramatica de Psicoder
+
 raiz : (f_principal) EOF;//desde la raiz de determina si es principal funcion o estructura
 f_principal: FP contenido* FFP;
 contenido: declaracion | lectura | imprimir;//llena con cada una de las distintas intrucciones que pueden estar dentro de una función
