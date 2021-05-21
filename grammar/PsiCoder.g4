@@ -4,7 +4,8 @@ grammar PsiCoder;
 
 raiz : (f_principal) EOF;//desde la raiz de determina si es principal funcion o estructura
 f_principal: FP contenido* FFP;
-contenido: declaracion | lectura | imprimir | condicional | ciclomientras | ciclohacer;//llena con cada una de las distintas intrucciones que pueden estar dentro de una función
+//llena con cada una de las distintas intrucciones que pueden estar dentro de una función
+contenido: declaracion | lectura | imprimir | condicional | ciclomientras | ciclohacer | ciclopara;
 
 //declaracion y asignacion de todas kas posibles variables
 declaracion: varBooleano | varEntero | varReal | varCaracter | varCadena;
@@ -48,7 +49,13 @@ ciclomientras : MIENTRAS operacionlogica HACER contenido+ FIN_MIENTRAS ;
 ciclohacer : HACER contenido+ MIENTRAS operacionlogica TK_PYC ;
 
 //ciclo para
-ciclopara : PARA contenido+ MIENTRAS operacionlogica TK_PYC ;
+ciclopara : PARA elementospara HACER contenido+ FIN_PARA (PARA elementosparados HACER contenido+ FIN_PARA)?;
+elementospara: TK_PAR_IZQ ENTERO ID TK_ASIG TK_ENTERO TK_PYC comparadorpara TK_PYC varcomparable TK_PAR_DER;
+elementosparados: TK_PAR_IZQ ID TK_ASIG TK_ENTERO TK_PYC comparadorpara TK_PYC varcomparable TK_PAR_DER;
+comparadorpara : ID credec varcomparable (operadorlogico ID credec varcomparable)? ;
+varcomparable : (ID | TK_ENTERO);
+credec : (TK_MENOR | TK_MAYOR | TK_MENOR_IGUAL | TK_MAYOR_IGUAL) ;
+
 
 
 //token de palabras y simbolos reservadas
@@ -64,6 +71,7 @@ MIENTRAS : 'mientras';
 HACER: 'hacer';
 FIN_MIENTRAS : 'fin_mientras';
 PARA : 'para';
+FIN_PARA: 'fin_para';
 BOOLEANO : 'booleano';
 ENTERO : 'entero';
 REAL : 'real';
