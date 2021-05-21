@@ -4,7 +4,7 @@ grammar PsiCoder;
 
 raiz : (f_principal) EOF;//desde la raiz de determina si es principal funcion o estructura
 f_principal: FP contenido* FFP;
-contenido: declaracion | lectura | imprimir;//llena con cada una de las distintas intrucciones que pueden estar dentro de una función
+contenido: declaracion | lectura | imprimir | condicional;//llena con cada una de las distintas intrucciones que pueden estar dentro de una función
 
 //declaracion y asignacion de todas kas posibles variables
 declaracion: varBooleano | varEntero | varReal | varCaracter | varCadena;
@@ -32,12 +32,24 @@ lectura: LEER TK_PAR_IZQ ID TK_PAR_DER TK_PYC ;
 imprimir: IMPRIMIR TK_PAR_IZQ impresion TK_PAR_DER TK_PYC ;
 impresion: varimpresion (TK_COMA varimpresion)*;
 varimpresion: TK_BOOLEANO | TK_ENTERO | TK_REAL | TK_CARACTER | TK_CADENA | operacion | ID;
-//operacion : TK_PAR_IZQ expresion (operador expresion)* TK_PAR_DER;
+
+//condiciones para declarar un if
+condicional : SI operacionlogica ENTONCES contenido+ (SI_NO contenido+)? FIN_SI ;
+operacionlogica : TK_PAR_IZQ  varimpresion  comparador varimpresion (operadorlogico varimpresion  comparador varimpresion )? TK_PAR_DER;
+
+//tokens referentes a operaciones logicas
+operadorlogico: TK_Y | TK_O;
+comparador: TK_MENOR | TK_MAYOR | TK_MENOR_IGUAL | TK_MAYOR_IGUAL | TK_IGUAL;
+
 //token de palabras y simbolos reservadas
 FP : 'funcion_principal';
 FFP : 'fin_principal';
 LEER :'leer';
 IMPRIMIR : 'imprimir';
+SI : 'si';
+ENTONCES: 'entonces';
+FIN_SI : 'fin_si';
+SI_NO: 'si_no';
 BOOLEANO : 'booleano';
 ENTERO : 'entero';
 REAL : 'real';
@@ -53,6 +65,14 @@ TK_DIV : '/';
 TK_MOD : '%';
 TK_PAR_IZQ : '(';
 TK_PAR_DER : ')';
+TK_Y : '&&';
+TK_O : '||';
+TK_MENOR : '<';
+TK_MAYOR : '>';
+TK_MENOR_IGUAL : '<=';
+TK_MAYOR_IGUAL : '>=';
+TK_IGUAL : '==';
+
 
 TK_BOOLEANO : ( 'falso' | 'verdadero');
 ID :[A-Za-z_]+[0-9]*;
