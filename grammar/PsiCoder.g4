@@ -4,7 +4,7 @@ grammar PsiCoder;
 
 raiz : (f_principal) EOF;//desde la raiz de determina si es principal funcion o estructura
 f_principal: FP contenido* FFP;
-contenido: declaracion | lectura | imprimir | condicional;//llena con cada una de las distintas intrucciones que pueden estar dentro de una función
+contenido: declaracion | lectura | imprimir | condicional | ciclomientras | ciclohacer;//llena con cada una de las distintas intrucciones que pueden estar dentro de una función
 
 //declaracion y asignacion de todas kas posibles variables
 declaracion: varBooleano | varEntero | varReal | varCaracter | varCadena;
@@ -41,6 +41,16 @@ operacionlogica : TK_PAR_IZQ  varimpresion  comparador varimpresion (operadorlog
 operadorlogico: TK_Y | TK_O;
 comparador: TK_MENOR | TK_MAYOR | TK_MENOR_IGUAL | TK_MAYOR_IGUAL | TK_IGUAL;
 
+//ciclo mientras
+ciclomientras : MIENTRAS operacionlogica HACER contenido+ FIN_MIENTRAS ;
+
+//ciclo hacer
+ciclohacer : HACER contenido+ MIENTRAS operacionlogica TK_PYC ;
+
+//ciclo para
+ciclopara : PARA contenido+ MIENTRAS operacionlogica TK_PYC ;
+
+
 //token de palabras y simbolos reservadas
 FP : 'funcion_principal';
 FFP : 'fin_principal';
@@ -50,6 +60,10 @@ SI : 'si';
 ENTONCES: 'entonces';
 FIN_SI : 'fin_si';
 SI_NO: 'si_no';
+MIENTRAS : 'mientras';
+HACER: 'hacer';
+FIN_MIENTRAS : 'fin_mientras';
+PARA : 'para';
 BOOLEANO : 'booleano';
 ENTERO : 'entero';
 REAL : 'real';
