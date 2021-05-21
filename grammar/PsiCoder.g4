@@ -5,7 +5,7 @@ grammar PsiCoder;
 raiz : (f_principal) EOF;//desde la raiz de determina si es principal funcion o estructura
 f_principal: FP contenido* FFP;
 //llena con cada una de las distintas intrucciones que pueden estar dentro de una función
-contenido: declaracion | lectura | imprimir | condicional | ciclomientras | ciclohacer | ciclopara;
+contenido: declaracion | lectura | imprimir | condicional | ciclomientras | ciclohacer | ciclopara | multiple;
 
 //declaracion y asignacion de todas kas posibles variables
 declaracion: varBooleano | varEntero | varReal | varCaracter | varCadena;
@@ -56,7 +56,9 @@ comparadorpara : ID credec varcomparable (operadorlogico ID credec varcomparable
 varcomparable : (ID | TK_ENTERO);
 credec : (TK_MENOR | TK_MAYOR | TK_MENOR_IGUAL | TK_MAYOR_IGUAL) ;
 
-
+//seleccion multiple
+multiple : SELECCIONAR TK_PAR_IZQ ID TK_PAR_DER ENTRE casos FIN_SELECCIONAR;
+casos : (CASO TK_ENTERO TK_DOSP contenido+ (ROMPER TK_PYC)?)+ (DEFECTO TK_DOSP contenido*)? | (DEFECTO TK_DOSP contenido*) ;
 
 //token de palabras y simbolos reservadas
 FP : 'funcion_principal';
@@ -71,13 +73,20 @@ MIENTRAS : 'mientras';
 HACER: 'hacer';
 FIN_MIENTRAS : 'fin_mientras';
 PARA : 'para';
-FIN_PARA: 'fin_para';
+FIN_PARA : 'fin_para';
+SELECCIONAR : 'seleccionar';
+ENTRE : 'entre';
+CASO : 'caso';
+ROMPER: 'romper';
+DEFECTO : 'defecto';
+FIN_SELECCIONAR : 'fin_seleccionar';
 BOOLEANO : 'booleano';
 ENTERO : 'entero';
 REAL : 'real';
 CARACTER :'caracter';
 CADENA : 'cadena';
 TK_PYC : ';';
+TK_DOSP : ':';
 TK_ASIG : '=';
 TK_COMA : ',';
 TK_MAS : '+';
