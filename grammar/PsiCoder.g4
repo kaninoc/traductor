@@ -133,4 +133,7 @@ TK_REAL: (('0'..'9') | (('1'..'9')('0'..'9')+))[.]('0'..'9')+;
 TK_CADENA: '"'[a-zA-Z0-9_ \t\r\n]+'"';
 TK_CARACTER:'\''[a-zA-Z0-9_ \t\r\n]'\'';
 ESP : [ \t\r\n]+ -> skip;
+COMMENT : ('//' .*? '\n') -> skip ;
+COMMENTS : ('/*' .*? '*/')  -> skip ;
+
 
