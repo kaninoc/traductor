@@ -2,13 +2,13 @@ grammar PsiCoder;
 
 //gramatica de Psicoder
 
-raiz : (f_principal) EOF;//desde la raiz de determina si es principal funcion o estructura
-f_principal: FP contenido* FFP;
+raiz : estructuras* (f_principal) EOF;//desde la raiz de determina si es principal funcion o estructura
+f_principal: FP contenido+ FFP;
 //llena con cada una de las distintas intrucciones que pueden estar dentro de una función
-contenido: declaracion | lectura | imprimir | condicional | ciclomientras | ciclohacer | ciclopara | multiple;
+contenido: declaracion | lectura | imprimir | condicional | ciclomientras | ciclohacer | ciclopara | multiple ;
 
 //declaracion y asignacion de todas kas posibles variables
-declaracion: varBooleano | varEntero | varReal | varCaracter | varCadena;
+declaracion: varBooleano | varEntero | varReal | varCaracter | varCadena | varEstructura | varAsigEstructura | varDeclarada;
 varBooleano : BOOLEANO ID extvarB;//declaraciones para variables de tipo booleano
 extvarB : TK_PYC | TK_ASIG TK_BOOLEANO extvarB | TK_COMA ID extvarB;  //multiples variables y asignaciones booleano
 varEntero : ENTERO ID extvarE;//declaraciones para variables de tipo entero
@@ -19,6 +19,11 @@ varCaracter : CARACTER ID extvarC;//declaraciones para variables de tipo caracte
 extvarC : TK_PYC | TK_ASIG TK_CARACTER extvarC | TK_COMA ID extvarC; //multiples variables y asignaciones caracter
 varCadena : CADENA ID extvarS;//declaraciones para variables de tipo cadena
 extvarS : TK_PYC | TK_ASIG TK_CADENA extvarS | TK_COMA ID extvarS;//multiples variables y asignaciones cadena
+varEstructura : ID ID extvarEstructura;//declaraciones para variables de Estructura
+extvarEstructura : TK_PYC | TK_COMA varimpresion extvarEstructura;//multiples variables de Estructuras
+varAsigEstructura : ID TK_PUNTO ID (TK_PUNTO ID)* TK_ASIG varimpresion TK_PYC; //Asignacion de variables estructuras
+varDeclarada : ID TK_ASIG varimpresion TK_PYC;
+
 
 //logica de parentesis y operadores que se usan para crear una operacion coherente
 operacion : expresion (operador expresion)*;
@@ -40,7 +45,7 @@ operacionlogica : TK_PAR_IZQ  varimpresion  comparador varimpresion (operadorlog
 
 //tokens referentes a operaciones logicas
 operadorlogico: TK_Y | TK_O;
-comparador: TK_MENOR | TK_MAYOR | TK_MENOR_IGUAL | TK_MAYOR_IGUAL | TK_IGUAL;
+comparador: TK_MENOR | TK_MAYOR | TK_MENOR_IGUAL | TK_MAYOR_IGUAL | TK_IGUAL | TK_DIF;
 
 //ciclo mientras
 ciclomientras : MIENTRAS operacionlogica HACER contenido+ FIN_MIENTRAS ;
@@ -59,6 +64,10 @@ credec : (TK_MENOR | TK_MAYOR | TK_MENOR_IGUAL | TK_MAYOR_IGUAL) ;
 //seleccion multiple
 multiple : SELECCIONAR TK_PAR_IZQ ID TK_PAR_DER ENTRE casos FIN_SELECCIONAR;
 casos : (CASO TK_ENTERO TK_DOSP contenido+ (ROMPER TK_PYC)?)+ (DEFECTO TK_DOSP contenido*)? | (DEFECTO TK_DOSP contenido*) ;
+
+//declaracion y asignacion de estructuras
+estructuras : ESTRUCTURA ID declaracion+ FIN_ESTRUCTURA ;
+
 
 //token de palabras y simbolos reservadas
 FP : 'funcion_principal';
@@ -79,7 +88,9 @@ ENTRE : 'entre';
 CASO : 'caso';
 ROMPER: 'romper';
 DEFECTO : 'defecto';
-FIN_SELECCIONAR : 'fin_seleccionar';
+FIN_SELECCIONAR : 'fin_seleccionar' ;
+ESTRUCTURA : 'estructura' ;
+FIN_ESTRUCTURA : 'fin_estructura' ;
 BOOLEANO : 'booleano';
 ENTERO : 'entero';
 REAL : 'real';
@@ -89,6 +100,7 @@ TK_PYC : ';';
 TK_DOSP : ':';
 TK_ASIG : '=';
 TK_COMA : ',';
+TK_PUNTO : '.';
 TK_MAS : '+';
 TK_MENOS : '-';
 TK_MULT : '*';
@@ -103,12 +115,13 @@ TK_MAYOR : '>';
 TK_MENOR_IGUAL : '<=';
 TK_MAYOR_IGUAL : '>=';
 TK_IGUAL : '==';
+TK_DIF : '!=';
 
 
 TK_BOOLEANO : ( 'falso' | 'verdadero');
 ID :[A-Za-z_]+[0-9]*;
 TK_ENTERO: ('-')?(('0'..'9') | (('1'..'9')('0'..'9')+));
-TK_REAL: ('-')?(('0'..'9') | (('1'..'9')('0'..'9')+))[.]('0'..'9')+;
+TK_REAL: (TK_MENOS)?(('0'..'9') | (('1'..'9')('0'..'9')+))[.]('0'..'9')+;
 TK_CADENA: '"'[a-zA-Z0-9_ \t\r\n]+'"';
 TK_CARACTER:'\''[a-zA-Z0-9_ \t\r\n]'\'';
 ESP : [ \t\r\n]+ -> skip;
