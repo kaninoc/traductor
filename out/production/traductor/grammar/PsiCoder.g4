@@ -42,7 +42,10 @@ repeticionimpresion: TK_COMA varimpresion;
 varimpresion: TK_BOOLEANO | TK_ENTERO | TK_REAL | TK_CARACTER | TK_CADENA | operacion | ID | asigfuncion;
 
 //condiciones para declarar un if
-condicional : SI operacionlogica ENTONCES contenido+ (SI_NO contenido+)? FIN_SI ;
+condicional : SI operacionlogica cuerpoif ;
+cuerpoif : ENTONCES contenido+ sino;
+sino : (SI_NO contenido+)? FIN_SI;
+//cuerpoif : ENTONCES contenido+  ;
 operacionlogica : TK_PAR_IZQ  varimpresion  comparador varimpresion (operadorlogico varimpresion  comparador varimpresion )? TK_PAR_DER;
 
 //tokens referentes a operaciones logicas

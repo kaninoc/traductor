@@ -308,6 +308,26 @@ public interface PsiCoderListener extends ParseTreeListener {
 	 */
 	void exitCondicional(PsiCoderParser.CondicionalContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#cuerpoif}.
+	 * @param ctx the parse tree
+	 */
+	void enterCuerpoif(PsiCoderParser.CuerpoifContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#cuerpoif}.
+	 * @param ctx the parse tree
+	 */
+	void exitCuerpoif(PsiCoderParser.CuerpoifContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#sino}.
+	 * @param ctx the parse tree
+	 */
+	void enterSino(PsiCoderParser.SinoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#sino}.
+	 * @param ctx the parse tree
+	 */
+	void exitSino(PsiCoderParser.SinoContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PsiCoderParser#operacionlogica}.
 	 * @param ctx the parse tree
 	 */

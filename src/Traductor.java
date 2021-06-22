@@ -601,48 +601,98 @@ public class Traductor extends PsiCoderBaseListener {
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterCondicional(PsiCoderParser.CondicionalContext ctx) { }
+    @Override public void enterCondicional(PsiCoderParser.CondicionalContext ctx) {
+        if (ctx.SI()!=null){
+            cadena += calculartab(tabulaciones) + "if";
+            tabulaciones+=1;
+        }
+
+    }
+
+    @Override public void exitCondicional(PsiCoderParser.CondicionalContext ctx) {
+
+    }
+    @Override public void enterCuerpoif(PsiCoderParser.CuerpoifContext ctx) {
+        if (ctx.ENTONCES()!=null){
+            cadena+="{\n";
+        }
+    }
+
+    @Override public void exitCuerpoif(PsiCoderParser.CuerpoifContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void exitCondicional(PsiCoderParser.CondicionalContext ctx) { }
+    @Override public void enterSino(PsiCoderParser.SinoContext ctx) {
+        if (ctx.SI_NO()!=null){
+            tabulaciones-=1;
+            cadena+=calculartab(tabulaciones)+"}else{"+"\n";
+            tabulaciones+=1;
+        }
+
+    }
+
+    @Override public void exitSino(PsiCoderParser.SinoContext ctx) {
+        if (ctx.FIN_SI()!=null){
+            tabulaciones-=1;
+            cadena+=calculartab(tabulaciones)+"}\n";
+        }
+    }
+
+
+    @Override public void enterOperacionlogica(PsiCoderParser.OperacionlogicaContext ctx) {
+        if (ctx.TK_PAR_IZQ()!=null){
+            cadena += ctx.TK_PAR_IZQ().getText();
+        }
+
+
+    }
+
+    @Override public void exitOperacionlogica(PsiCoderParser.OperacionlogicaContext ctx) {
+        if (ctx.TK_PAR_DER()!=null){
+            cadena += ctx.TK_PAR_DER().getText();
+        }
+    }
+
+    @Override public void enterOperadorlogico(PsiCoderParser.OperadorlogicoContext ctx) {
+        if (ctx.TK_O()!=null){
+            cadena+=" "+ctx.TK_O().getText()+" ";
+        }
+        if (ctx.TK_Y()!=null){
+            cadena+=" "+ctx.TK_Y().getText()+" ";
+        }
+    }
+
+    @Override public void exitOperadorlogico(PsiCoderParser.OperadorlogicoContext ctx) {
+
+    }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterOperacionlogica(PsiCoderParser.OperacionlogicaContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void exitOperacionlogica(PsiCoderParser.OperacionlogicaContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void enterOperadorlogico(PsiCoderParser.OperadorlogicoContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void exitOperadorlogico(PsiCoderParser.OperadorlogicoContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void enterComparador(PsiCoderParser.ComparadorContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterComparador(PsiCoderParser.ComparadorContext ctx) {
+        if (ctx.TK_MENOR_IGUAL()!=null){
+            cadena+=ctx.TK_MENOR_IGUAL().getText();
+        }
+        if (ctx.TK_MAYOR_IGUAL()!=null){
+            cadena+=ctx.TK_MAYOR_IGUAL().getText();
+        }
+        if (ctx.TK_MENOR()!=null){
+            cadena+=ctx.TK_MENOR().getText();
+        }
+        if (ctx.TK_MAYOR()!=null){
+            cadena+=ctx.TK_MAYOR().getText();
+        }
+        if (ctx.TK_IGUAL()!=null){
+            cadena+=ctx.TK_IGUAL().getText();
+        }
+        if (ctx.TK_DIF()!=null){
+            cadena+=ctx.TK_DIF().getText();
+        }
+    }
+
     @Override public void exitComparador(PsiCoderParser.ComparadorContext ctx) { }
     /**
      * {@inheritDoc}

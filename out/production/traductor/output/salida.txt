@@ -1,16 +1,24 @@
 function funcion_principal(){
-	let a:number = 49, b:number, c:number = 0;
-	let f:number = 35.000048, d:number, ah:number = 0.09;
-	let as:string = '1', pos:string, def:string = 'f', ali:string;
-	let bandera:boolean = true, de:boolean, al:boolean = false;
-	let asta:string = "hola mundo", acd:string, dest:string = "ad";
-	let a = prompt();
-	carro = "BMW";
-	llantas = 2 + 4 + 6;
-	console.log(suma(a,b,c), 3 + 5, "Mundo");
-	let mercurio = Planeta;
-	mercurio.tierra = 2 / ( 0.9 * ( 2.9 + ( 44 % 5 ) - 56 ) );
-	let reality:number;
-	suma(2 + 49,a,avl,b);
+	let num1:number = 0;
+	let num2:number = 4;
+	let res:number;
+	if(num1>num2){
+		res = num1;
+		if(res==b){
+			console.log("Test if");
+		}else{
+			console.log("Test sino");
+		}
+	}else{
+		res = num2;
+	}
+	if(num1>num2){
+		res = num1;
+		if(res==b){
+			console.log("Test if");
+		}
+	}else{
+		res = num2;
+	}
 	return null;
 }
