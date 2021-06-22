@@ -228,30 +228,48 @@ public class Traductor extends PsiCoderBaseListener {
 
     }
 
-    @Override public void enterVarCaracter(PsiCoderParser.VarCaracterContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterVarCaracter(PsiCoderParser.VarCaracterContext ctx) {
+        if(ctx.CARACTER() != null){
+            if (tipovariable == "nulo"){
+                cadena += calculartab(tabulaciones)+"let ";
+                tipovariable = "string";
+            }
+        }
+        if(ctx.ID() != null){
+            cadena+=ctx.ID().getText()+":"+tipovariable;
+        }
+
+    }
+
     @Override public void exitVarCaracter(PsiCoderParser.VarCaracterContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterExtvarC(PsiCoderParser.ExtvarCContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void exitExtvarC(PsiCoderParser.ExtvarCContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterExtvarC(PsiCoderParser.ExtvarCContext ctx) {
+        if (ctx.TK_ASIG()!=null){
+            cadena+=" "+ctx.TK_ASIG().getText()+" ";
+        }
+        if (ctx.TK_CARACTER()!=null){
+            cadena+=ctx.TK_CARACTER().getText();
+        }
+
+        if (ctx.TK_COMA()!=null){
+            cadena+=ctx.TK_COMA().getText()+" ";
+        }
+        if(ctx.ID() != null){
+            cadena+=ctx.ID().getText()+":"+tipovariable;
+        }
+    }
+
+    @Override public void exitExtvarC(PsiCoderParser.ExtvarCContext ctx) {
+        if (ctx.TK_PYC()!=null){
+            cadena+=ctx.TK_PYC().getText()+"\n";
+            tipovariable = "nulo";
+        }
+    }
+
     @Override public void enterVarCadena(PsiCoderParser.VarCadenaContext ctx) {
         if(ctx.CADENA() != null){
             if (tipovariable == "nulo"){
