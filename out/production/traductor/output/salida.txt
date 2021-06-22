@@ -1,8 +1,10 @@
 function funcion_principal(){
-	let a:number = -49, b:number, c:number = 0;
+	let a:number = 49, b:number, c:number = 0;
 	let f:number = 35.000048, d:number, ah:number = 0.09;
-	let as:string = '1', pos:string, def:string = ali:string;
+	let as:string = '1', pos:string, def:string = 'f', ali:string;
 	let bandera:boolean = true, de:boolean, al:boolean = false;
 	let asta:string = "hola mundo", acd:string, dest:string = "ad";
+	let mercurio = Planeta, venus ;
+	let reality:number;
 	return null;
 }

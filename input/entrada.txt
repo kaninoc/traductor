@@ -5,5 +5,7 @@ caracter as = '1',pos,def='f',ali;
 booleano bandera = verdadero,de,al = falso;
 cadena asta ="hola mundo",acd,dest="ad";
 leer(a);
+Planeta mercurio;
+real reality;
 imprimir (3+5);
 fin_principal

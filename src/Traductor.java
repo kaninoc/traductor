@@ -1,8 +1,7 @@
+import grammar.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
-
-import java.io.*;
 
 public class Traductor extends PsiCoderBaseListener {
 
@@ -15,14 +14,10 @@ public class Traductor extends PsiCoderBaseListener {
     }
 
     public String calculartab(int tab){
-        String s = "";
         if (tab == 0){
             return "";
         }
-        for (int i =0; i < tab;i++ ){
-            s+="\t";
-        }
-        return s;
+        return "\t".repeat(Math.max(0, tab));
     }
 
 
@@ -88,7 +83,7 @@ public class Traductor extends PsiCoderBaseListener {
      */
     @Override public void enterVarBooleano(PsiCoderParser.VarBooleanoContext ctx) {
         if(ctx.BOOLEANO() != null){
-            if (tipovariable == "nulo"){
+            if (tipovariable.equals("nulo")){
                 cadena += calculartab(tabulaciones)+"let ";
                 tipovariable = "boolean";
             }
@@ -134,7 +129,7 @@ public class Traductor extends PsiCoderBaseListener {
 
     @Override public void enterVarEntero(PsiCoderParser.VarEnteroContext ctx) {
         if(ctx.ENTERO() != null){
-            if (tipovariable == "nulo"){
+            if (tipovariable.equals("nulo")){
                 cadena += calculartab(tabulaciones)+"let ";
                 tipovariable = "number";
             }
@@ -186,7 +181,7 @@ public class Traductor extends PsiCoderBaseListener {
     @Override public void enterVarReal(PsiCoderParser.VarRealContext ctx) {
 
         if(ctx.REAL() != null){
-            if (tipovariable == "nulo"){
+            if (tipovariable.equals("nulo")){
                 cadena += calculartab(tabulaciones)+"let ";
                 tipovariable = "number";
             }
@@ -230,7 +225,7 @@ public class Traductor extends PsiCoderBaseListener {
 
     @Override public void enterVarCaracter(PsiCoderParser.VarCaracterContext ctx) {
         if(ctx.CARACTER() != null){
-            if (tipovariable == "nulo"){
+            if (tipovariable.equals("nulo")){
                 cadena += calculartab(tabulaciones)+"let ";
                 tipovariable = "string";
             }
@@ -272,7 +267,7 @@ public class Traductor extends PsiCoderBaseListener {
 
     @Override public void enterVarCadena(PsiCoderParser.VarCadenaContext ctx) {
         if(ctx.CADENA() != null){
-            if (tipovariable == "nulo"){
+            if (tipovariable.equals("nulo")){
                 cadena += calculartab(tabulaciones)+"let ";
                 tipovariable = "string";
             }
@@ -311,6 +306,77 @@ public class Traductor extends PsiCoderBaseListener {
         }
     }
 
+    @Override public void enterVarEstructura(PsiCoderParser.VarEstructuraContext ctx) {
+
+        if (ctx.ID()!=null){
+            int t = ctx.ID().size();
+            System.out.println(t);
+            cadena += calculartab(tabulaciones)+"let "+ctx.ID(1).getText()+" = "+ctx.ID(0).getText();
+        }
+
+    }
+
+    @Override public void exitVarEstructura(PsiCoderParser.VarEstructuraContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterExtvarEstructura(PsiCoderParser.ExtvarEstructuraContext ctx) {
+
+        if (ctx.TK_COMA()!=null){
+            cadena+=ctx.TK_COMA().getText()+" ";
+        }
+        if(ctx.ID()!=null){
+            cadena +=ctx.ID().getText()+" ";
+        }
+
+    }
+
+    @Override public void exitExtvarEstructura(PsiCoderParser.ExtvarEstructuraContext ctx) {
+        if (ctx.TK_PYC()!=null){
+            cadena+=ctx.TK_PYC().getText()+"\n";
+            tipovariable = "nulo";
+        }
+
+    }
+
+    @Override public void enterVarAsigEstructura(PsiCoderParser.VarAsigEstructuraContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitVarAsigEstructura(PsiCoderParser.VarAsigEstructuraContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterVarDeclarada(PsiCoderParser.VarDeclaradaContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitVarDeclarada(PsiCoderParser.VarDeclaradaContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterAsigfuncion(PsiCoderParser.AsigfuncionContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitAsigfuncion(PsiCoderParser.AsigfuncionContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
     @Override public void enterOperacion(PsiCoderParser.OperacionContext ctx) { }
     /**
      * {@inheritDoc}
@@ -402,6 +468,222 @@ public class Traductor extends PsiCoderBaseListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override public void exitVarimpresion(PsiCoderParser.VarimpresionContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterCondicional(PsiCoderParser.CondicionalContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitCondicional(PsiCoderParser.CondicionalContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterOperacionlogica(PsiCoderParser.OperacionlogicaContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitOperacionlogica(PsiCoderParser.OperacionlogicaContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterOperadorlogico(PsiCoderParser.OperadorlogicoContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitOperadorlogico(PsiCoderParser.OperadorlogicoContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterComparador(PsiCoderParser.ComparadorContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitComparador(PsiCoderParser.ComparadorContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterCiclomientras(PsiCoderParser.CiclomientrasContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitCiclomientras(PsiCoderParser.CiclomientrasContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterCiclohacer(PsiCoderParser.CiclohacerContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitCiclohacer(PsiCoderParser.CiclohacerContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterCiclopara(PsiCoderParser.CicloparaContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitCiclopara(PsiCoderParser.CicloparaContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterElementospara(PsiCoderParser.ElementosparaContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitElementospara(PsiCoderParser.ElementosparaContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterElementosparados(PsiCoderParser.ElementosparadosContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitElementosparados(PsiCoderParser.ElementosparadosContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterComparadorpara(PsiCoderParser.ComparadorparaContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitComparadorpara(PsiCoderParser.ComparadorparaContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterVarcomparable(PsiCoderParser.VarcomparableContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitVarcomparable(PsiCoderParser.VarcomparableContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterCredec(PsiCoderParser.CredecContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitCredec(PsiCoderParser.CredecContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterMultiple(PsiCoderParser.MultipleContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitMultiple(PsiCoderParser.MultipleContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterCasos(PsiCoderParser.CasosContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitCasos(PsiCoderParser.CasosContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterEstructuras(PsiCoderParser.EstructurasContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitEstructuras(PsiCoderParser.EstructurasContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterDecfuncion(PsiCoderParser.DecfuncionContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitDecfuncion(PsiCoderParser.DecfuncionContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterParametros(PsiCoderParser.ParametrosContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitParametros(PsiCoderParser.ParametrosContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterTipofuncion(PsiCoderParser.TipofuncionContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitTipofuncion(PsiCoderParser.TipofuncionContext ctx) { }
 
     /**
      * {@inheritDoc}
@@ -427,5 +709,4 @@ public class Traductor extends PsiCoderBaseListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override public void visitErrorNode(ErrorNode node) { }
-
 }

@@ -20,7 +20,7 @@ extvarC : TK_PYC | TK_ASIG TK_CARACTER extvarC | TK_COMA ID extvarC; //multiples
 varCadena : CADENA ID extvarS;//declaraciones para variables de tipo cadena
 extvarS : TK_PYC | TK_ASIG TK_CADENA extvarS | TK_COMA ID extvarS;//multiples variables y asignaciones cadena
 varEstructura : ID ID extvarEstructura;//declaraciones para variables de Estructura
-extvarEstructura : TK_PYC | TK_COMA varimpresion extvarEstructura;//multiples variables de Estructuras
+extvarEstructura : TK_PYC | TK_COMA ID extvarEstructura;//multiples variables de Estructuras ######extvarEstructura : TK_PYC | TK_COMA ID varimpresion extvarEstructura;
 varAsigEstructura : ID TK_PUNTO ID (TK_PUNTO ID)* TK_ASIG varimpresion TK_PYC; //Asignacion de variables estructuras
 varDeclarada : ID TK_ASIG varimpresion TK_PYC; //asigna valores a id ya declaradas
 asigfuncion : ID TK_PAR_IZQ (varimpresion (TK_COMA varimpresion)*)? TK_PAR_DER ;//carga variables de funciones resueltas
