@@ -1,6 +1,7 @@
 funcion_principal
 entero a = -49,b,c=0;
 real f = 35.000048,d,ah=0.09;
+booleano bandera = verdadero;
 leer(a);
 imprimir (3+5);
 fin_principal
