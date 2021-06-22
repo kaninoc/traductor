@@ -4,6 +4,7 @@ function funcion_principal(){
 	let as:string = '1', pos:string, def:string = 'f', ali:string;
 	let bandera:boolean = true, de:boolean, al:boolean = false;
 	let asta:string = "hola mundo", acd:string, dest:string = "ad";
+	let a = prompt();
 	carro = "BMW";
 	llantas = 2 + 4 + 6;
 	let mercurio = Planeta;

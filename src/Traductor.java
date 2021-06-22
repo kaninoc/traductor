@@ -494,18 +494,21 @@ public class Traductor extends PsiCoderBaseListener {
     @Override public void exitTipovar(PsiCoderParser.TipovarContext ctx) { }
 
 
-    @Override public void enterLectura(PsiCoderParser.LecturaContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void exitLectura(PsiCoderParser.LecturaContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterLectura(PsiCoderParser.LecturaContext ctx) {
+        if(ctx.TK_PAR_IZQ()!=null&&ctx.TK_PAR_DER()!=null) {
+            if (ctx.ID() != null) {
+                cadena += calculartab(tabulaciones) + "let " + ctx.ID().getText() + " = prompt()";
+            }
+        }
+    }
+
+    @Override public void exitLectura(PsiCoderParser.LecturaContext ctx) {
+        if (ctx.TK_PYC()!=null){
+            cadena+=ctx.TK_PYC().getText()+"\n";
+            tipovariable = "nulo";
+        }
+    }
+
     @Override public void enterImprimir(PsiCoderParser.ImprimirContext ctx) { }
     /**
      * {@inheritDoc}
