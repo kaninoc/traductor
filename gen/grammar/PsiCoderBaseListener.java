@@ -340,6 +340,18 @@ public class PsiCoderBaseListener implements PsiCoderListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterRepeticionimpresion(PsiCoderParser.RepeticionimpresionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRepeticionimpresion(PsiCoderParser.RepeticionimpresionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterVarimpresion(PsiCoderParser.VarimpresionContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -278,6 +278,16 @@ public interface PsiCoderListener extends ParseTreeListener {
 	 */
 	void exitImpresion(PsiCoderParser.ImpresionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#repeticionimpresion}.
+	 * @param ctx the parse tree
+	 */
+	void enterRepeticionimpresion(PsiCoderParser.RepeticionimpresionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#repeticionimpresion}.
+	 * @param ctx the parse tree
+	 */
+	void exitRepeticionimpresion(PsiCoderParser.RepeticionimpresionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PsiCoderParser#varimpresion}.
 	 * @param ctx the parse tree
 	 */

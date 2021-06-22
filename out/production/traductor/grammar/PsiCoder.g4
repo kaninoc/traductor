@@ -37,7 +37,8 @@ lectura: LEER TK_PAR_IZQ ID TK_PAR_DER TK_PYC ;
 
 //logica de impresion de datos por consola
 imprimir: IMPRIMIR TK_PAR_IZQ impresion TK_PAR_DER TK_PYC ;
-impresion: varimpresion (TK_COMA varimpresion)*;
+impresion: varimpresion (repeticionimpresion)*;
+repeticionimpresion: TK_COMA varimpresion;
 varimpresion: TK_BOOLEANO | TK_ENTERO | TK_REAL | TK_CARACTER | TK_CADENA | operacion | ID | asigfuncion;
 
 //condiciones para declarar un if

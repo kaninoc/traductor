@@ -8,6 +8,8 @@ public class Traductor extends PsiCoderBaseListener {
     public static String cadena = "";// contiene toda la traduccion que se muestra por consola ypor el archivo salida.txt
     public static int tabulaciones = 0;//espacios dependiendo de los metodos
     public static String tipovariable = "nulo";
+    public static boolean impresion =false;
+
     public String escribir(String token){
         cadena = cadena+token;
         return  cadena;
@@ -387,7 +389,12 @@ public class Traductor extends PsiCoderBaseListener {
     @Override public void enterAsigfuncion(PsiCoderParser.AsigfuncionContext ctx) {
 
         if (ctx.ID()!=null){
-            cadena+=calculartab(tabulaciones)+ ctx.ID().getText();
+            if (impresion==false){
+                cadena+=calculartab(tabulaciones)+ ctx.ID().getText();
+            }else{
+                cadena+=ctx.ID().getText();
+            }
+
         }
         if (ctx.TK_PAR_IZQ()!=null){
             cadena+=ctx.TK_PAR_IZQ().getText();
@@ -509,18 +516,28 @@ public class Traductor extends PsiCoderBaseListener {
         }
     }
 
-    @Override public void enterImprimir(PsiCoderParser.ImprimirContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void exitImprimir(PsiCoderParser.ImprimirContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterImprimir(PsiCoderParser.ImprimirContext ctx) {
+        if(ctx.TK_PAR_IZQ()!=null&&ctx.TK_PAR_DER()!=null) {
+            if (ctx.IMPRIMIR() != null) {
+                impresion=true;
+                cadena += calculartab(tabulaciones) + "console.log(";
+            }
+        }
+
+    }
+
+    @Override public void exitImprimir(PsiCoderParser.ImprimirContext ctx) {
+        if (ctx.TK_PAR_DER()!=null){
+            cadena+=ctx.TK_PAR_DER().getText();
+        }
+        if (ctx.TK_PYC()!=null){
+            cadena+=ctx.TK_PYC().getText()+"\n";
+            impresion=false;
+            tipovariable = "nulo";
+        }
+
+    }
+
     @Override public void enterImpresion(PsiCoderParser.ImpresionContext ctx) { }
     /**
      * {@inheritDoc}
@@ -528,6 +545,20 @@ public class Traductor extends PsiCoderBaseListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override public void exitImpresion(PsiCoderParser.ImpresionContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterRepeticionimpresion(PsiCoderParser.RepeticionimpresionContext ctx) {
+        if (ctx.TK_COMA()!=null){
+            cadena+=ctx.TK_COMA().getText()+" ";
+        }
+    }
+
+    @Override public void exitRepeticionimpresion(PsiCoderParser.RepeticionimpresionContext ctx) {
+
+    }
     /**
      * {@inheritDoc}
      *
