@@ -1,4 +1,6 @@
 funcion_principal
-/*leer(a);
-imprimir (3+5);*/
+entero a = -49,b,c=0;
+entero f = 35;
+leer(a);
+imprimir (3+5);
 fin_principal
