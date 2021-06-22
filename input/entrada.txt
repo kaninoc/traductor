@@ -1,0 +1,4 @@
+funcion_principal
+/*leer(a);
+imprimir (3+5);*/
+fin_principal
