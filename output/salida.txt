@@ -1,6 +1,7 @@
 function funcion_principal(){
 	let a:number = -49, b:number, c:number = 0;
 	let f:number = 35.000048, d:number, ah:number = 0.09;
-	let bandera:boolean = true;
+	let bandera:boolean = true, de:boolean, al:boolean = false;
+	let asta:string = "hola mundo", acd:string, dest:string = "ad";
 	return null;
 }

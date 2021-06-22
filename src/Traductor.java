@@ -111,7 +111,7 @@ public class Traductor extends PsiCoderBaseListener {
         if (ctx.TK_BOOLEANO()!=null){
             if(ctx.TK_BOOLEANO().getText().equals("verdadero")){
                 cadena+="true";
-            }else{
+            }else  if(ctx.TK_BOOLEANO().getText().equals("falso")){
                 cadena+="false";
             }
 
@@ -143,11 +143,7 @@ public class Traductor extends PsiCoderBaseListener {
             cadena+=ctx.ID().getText()+":"+tipovariable;
         }
     }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+
     @Override public void exitVarEntero(PsiCoderParser.VarEnteroContext ctx) { }
     /**
      * {@inheritDoc}
@@ -256,30 +252,47 @@ public class Traductor extends PsiCoderBaseListener {
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterVarCadena(PsiCoderParser.VarCadenaContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterVarCadena(PsiCoderParser.VarCadenaContext ctx) {
+        if(ctx.CADENA() != null){
+            if (tipovariable == "nulo"){
+                cadena += calculartab(tabulaciones)+"let ";
+                tipovariable = "string";
+            }
+        }
+        if(ctx.ID() != null){
+            cadena+=ctx.ID().getText()+":"+tipovariable;
+        }
+    }
+
     @Override public void exitVarCadena(PsiCoderParser.VarCadenaContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterExtvarS(PsiCoderParser.ExtvarSContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void exitExtvarS(PsiCoderParser.ExtvarSContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterExtvarS(PsiCoderParser.ExtvarSContext ctx) {
+        if (ctx.TK_ASIG()!=null){
+            cadena+=" "+ctx.TK_ASIG().getText()+" ";
+        }
+        if (ctx.TK_CADENA()!=null){
+            cadena+=ctx.TK_CADENA().getText();
+        }
+
+        if (ctx.TK_COMA()!=null){
+            cadena+=ctx.TK_COMA().getText()+" ";
+        }
+        if(ctx.ID() != null){
+            cadena+=ctx.ID().getText()+":"+tipovariable;
+        }
+    }
+
+    @Override public void exitExtvarS(PsiCoderParser.ExtvarSContext ctx) {
+        if (ctx.TK_PYC()!=null){
+            cadena+=ctx.TK_PYC().getText()+"\n";
+            tipovariable = "nulo";
+        }
+    }
+
     @Override public void enterOperacion(PsiCoderParser.OperacionContext ctx) { }
     /**
      * {@inheritDoc}
