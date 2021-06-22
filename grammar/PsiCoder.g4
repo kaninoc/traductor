@@ -24,7 +24,7 @@ extvarEstructura : TK_PYC | TK_COMA ID extvarEstructura;//multiples variables de
 varAsigEstructura : ID TK_PUNTO ID (TK_PUNTO ID)* TK_ASIG varimpresion TK_PYC; //Asignacion de variables estructuras
 varDeclarada : ID TK_ASIG varimpresion TK_PYC; //asigna valores a id ya declaradas
 asigfuncion : ID TK_PAR_IZQ (varimpresion (repeticion)*)? TK_PAR_DER TK_PYC?;//carga variables de funciones resueltas
-repeticion : TK_COMA varimpresion;//multiples parametros de funciones
+repeticion : TK_COMA varimpresion;//multiples parametros de funcion
 
 //logica de parentesis y operadores que se usan para crear una operacion coherente
 operacion : expresion (operador expresion)*;
