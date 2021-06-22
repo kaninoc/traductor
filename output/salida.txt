@@ -7,9 +7,9 @@ function funcion_principal(){
 	let a = prompt();
 	carro = "BMW";
 	llantas = 2 + 4 + 6;
-	let mercurio = Planeta;
+3 + 5	let mercurio = Planeta;
 	mercurio.tierra = 2 / ( 0.9 * ( 2.9 + ( 44 % 5 ) - 56 ) );
 	let reality:number;
 	suma(2 + 49,a,avl,b);
-3 + 5	return null;
+	return null;
 }
