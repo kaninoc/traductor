@@ -5,7 +5,7 @@ grammar PsiCoder;
 raiz : (estructuras | decfuncion)* (f_principal) (estructuras | decfuncion)* EOF;
 f_principal: FP contenido+ FFP;
 //llena con cada una de las distintas intrucciones que pueden estar dentro de una función
-contenido: declaracion | lectura | imprimir | condicional | ciclomientras | ciclohacer | ciclopara | multiple ;
+contenido: declaracion | lectura | imprimir | condicional | ciclomientras | ciclohacer | ciclopara | multiple | asigfuncion ;
 
 //declaracion y asignacion de todas kas posibles variables
 declaracion: varBooleano | varEntero | varReal | varCaracter | varCadena | varEstructura | varAsigEstructura | varDeclarada;
@@ -23,8 +23,8 @@ varEstructura : ID ID extvarEstructura;//declaraciones para variables de Estruct
 extvarEstructura : TK_PYC | TK_COMA ID extvarEstructura;//multiples variables de Estructuras ######extvarEstructura : TK_PYC | TK_COMA ID varimpresion extvarEstructura;
 varAsigEstructura : ID TK_PUNTO ID (TK_PUNTO ID)* TK_ASIG varimpresion TK_PYC; //Asignacion de variables estructuras
 varDeclarada : ID TK_ASIG varimpresion TK_PYC; //asigna valores a id ya declaradas
-asigfuncion : ID TK_PAR_IZQ (varimpresion (TK_COMA varimpresion)*)? TK_PAR_DER ;//carga variables de funciones resueltas
-
+asigfuncion : ID TK_PAR_IZQ (varimpresion (repeticion)*)? TK_PAR_DER TK_PYC?;//carga variables de funciones resueltas
+repeticion : TK_COMA varimpresion;//multiples parametros de funciones
 
 //logica de parentesis y operadores que se usan para crear una operacion coherente
 operacion : expresion (operador expresion)*;

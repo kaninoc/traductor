@@ -365,30 +365,61 @@ public class Traductor extends PsiCoderBaseListener {
         }
     }
 
-    @Override public void enterVarDeclarada(PsiCoderParser.VarDeclaradaContext ctx) { }
+    @Override public void enterVarDeclarada(PsiCoderParser.VarDeclaradaContext ctx) {
+
+        if (ctx.ID()!=null){
+            cadena+=calculartab(tabulaciones)+ ctx.ID().getText();
+        }
+        if (ctx.TK_ASIG()!=null){
+            cadena+=" "+ctx.TK_ASIG().getText()+" ";
+        }
+
+    }
+
+    @Override public void exitVarDeclarada(PsiCoderParser.VarDeclaradaContext ctx) {
+
+        if (ctx.TK_PYC()!=null){
+            cadena+=ctx.TK_PYC().getText()+"\n";
+            tipovariable = "nulo";
+        }
+    }
+
+    @Override public void enterAsigfuncion(PsiCoderParser.AsigfuncionContext ctx) {
+
+        if (ctx.ID()!=null){
+            cadena+=calculartab(tabulaciones)+ ctx.ID().getText();
+        }
+        if (ctx.TK_PAR_IZQ()!=null){
+            cadena+=ctx.TK_PAR_IZQ().getText();
+        }
+
+    }
+
+    @Override public void exitAsigfuncion(PsiCoderParser.AsigfuncionContext ctx) {
+        //System.out.println(ctx.TK_COMA().size());
+
+        if (ctx.TK_PAR_DER()!=null){
+            cadena+=ctx.TK_PAR_DER().getText();
+        }
+        if (ctx.TK_PYC()!=null){
+            cadena+=ctx.TK_PYC().getText()+"\n";
+            tipovariable = "nulo";
+        }
+
+    }
+    @Override public void enterRepeticion(PsiCoderParser.RepeticionContext ctx) {
+        if (ctx.TK_COMA()!=null){
+            cadena+=ctx.TK_COMA().getText();
+        }
+    }
+
+    @Override public void exitRepeticion(PsiCoderParser.RepeticionContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void exitVarDeclarada(PsiCoderParser.VarDeclaradaContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void enterAsigfuncion(PsiCoderParser.AsigfuncionContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void exitAsigfuncion(PsiCoderParser.AsigfuncionContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+
     @Override public void enterOperacion(PsiCoderParser.OperacionContext ctx) { }
     /**
      * {@inheritDoc}
@@ -415,6 +446,7 @@ public class Traductor extends PsiCoderBaseListener {
     }
 
     @Override public void enterOperador(PsiCoderParser.OperadorContext ctx) {
+
         if (ctx.TK_MAS()!=null){
             cadena+=" "+ctx.TK_MAS().getText()+" ";
         }
@@ -460,11 +492,8 @@ public class Traductor extends PsiCoderBaseListener {
     }
 
     @Override public void exitTipovar(PsiCoderParser.TipovarContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+
+
     @Override public void enterLectura(PsiCoderParser.LecturaContext ctx) { }
     /**
      * {@inheritDoc}

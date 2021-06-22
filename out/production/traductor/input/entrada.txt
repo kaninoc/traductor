@@ -5,8 +5,12 @@ caracter as = '1',pos,def='f',ali;
 booleano bandera = verdadero,de,al = falso;
 cadena asta ="hola mundo",acd,dest="ad";
 leer(a);
+carro = "BMW";
+llantas = 2 + 4 + 6 ;
 Planeta mercurio;
 mercurio.tierra = 2/(0.9*(2.9 +( 44 % 5 ) - 56));
 real reality;
+suma(2+49,a,avl,b);
 imprimir (3+5);
+
 fin_principal

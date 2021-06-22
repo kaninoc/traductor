@@ -198,6 +198,16 @@ public interface PsiCoderListener extends ParseTreeListener {
 	 */
 	void exitAsigfuncion(PsiCoderParser.AsigfuncionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#repeticion}.
+	 * @param ctx the parse tree
+	 */
+	void enterRepeticion(PsiCoderParser.RepeticionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#repeticion}.
+	 * @param ctx the parse tree
+	 */
+	void exitRepeticion(PsiCoderParser.RepeticionContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PsiCoderParser#operacion}.
 	 * @param ctx the parse tree
 	 */
