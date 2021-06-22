@@ -6,6 +6,7 @@ booleano bandera = verdadero,de,al = falso;
 cadena asta ="hola mundo",acd,dest="ad";
 leer(a);
 Planeta mercurio;
+mercurio.tierra = 2/(0.9*(2.9 +( 44 % 5 ) - 56));
 real reality;
 imprimir (3+5);
 fin_principal
