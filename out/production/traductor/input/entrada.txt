@@ -13,7 +13,7 @@ funcion_principal
        res = num2;
     fin_si
 
-    si ( num1 > num2 ) entonces
+    si ( num1 > num2 && num1 < 10) entonces
        res = num1;
        si( res == 0 ) entonces
             imprimir("Test if");

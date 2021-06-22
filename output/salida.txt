@@ -12,7 +12,7 @@ function funcion_principal(){
 	}else{
 		res = num2;
 	}
-	if(num1>num2){
+	if(num1>num2 && num1<10){
 		res = num1;
 		if(res==0){
 			console.log("Test if");
