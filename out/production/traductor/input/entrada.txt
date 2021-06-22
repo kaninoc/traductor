@@ -1,6 +1,6 @@
 funcion_principal
 entero a = -49,b,c=0;
-entero f = 35;
+real f = 35.000048,d,ah=0.09;
 leer(a);
 imprimir (3+5);
 fin_principal

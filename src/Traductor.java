@@ -165,30 +165,51 @@ public class Traductor extends PsiCoderBaseListener {
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterVarReal(PsiCoderParser.VarRealContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterVarReal(PsiCoderParser.VarRealContext ctx) {
+
+        if(ctx.REAL() != null){
+            if (tipovariable == "nulo"){
+                cadena += calculartab(tabulaciones)+"let ";
+                tipovariable = "number";
+            }
+        }
+        if(ctx.ID() != null){
+            cadena+=ctx.ID().getText()+":"+tipovariable;
+        }
+
+    }
+
     @Override public void exitVarReal(PsiCoderParser.VarRealContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterExtvarR(PsiCoderParser.ExtvarRContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void exitExtvarR(PsiCoderParser.ExtvarRContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterExtvarR(PsiCoderParser.ExtvarRContext ctx) {
+
+        if (ctx.TK_ASIG()!=null){
+            cadena+=" "+ctx.TK_ASIG().getText()+" ";
+        }
+        if (ctx.TK_REAL()!=null){
+            cadena+=ctx.TK_REAL().getText();
+        }
+
+        if (ctx.TK_COMA()!=null){
+            cadena+=ctx.TK_COMA().getText()+" ";
+        }
+        if(ctx.ID() != null){
+            cadena+=ctx.ID().getText()+":"+tipovariable;
+        }
+    }
+
+    @Override public void exitExtvarR(PsiCoderParser.ExtvarRContext ctx) {
+        if (ctx.TK_PYC()!=null){
+            cadena+=ctx.TK_PYC().getText()+"\n";
+            tipovariable = "nulo";
+        }
+
+    }
+
     @Override public void enterVarCaracter(PsiCoderParser.VarCaracterContext ctx) { }
     /**
      * {@inheritDoc}
