@@ -668,11 +668,7 @@ public class Traductor extends PsiCoderBaseListener {
     @Override public void exitOperadorlogico(PsiCoderParser.OperadorlogicoContext ctx) {
 
     }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+
     @Override public void enterComparador(PsiCoderParser.ComparadorContext ctx) {
         if (ctx.TK_MENOR_IGUAL()!=null){
             cadena+=ctx.TK_MENOR_IGUAL().getText();
@@ -739,11 +735,7 @@ public class Traductor extends PsiCoderBaseListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override public void exitCiclohacer(PsiCoderParser.CiclohacerContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+
     @Override public void enterCuerpociclohacer(PsiCoderParser.CuerpociclohacerContext ctx) {
         if (ctx.MIENTRAS()!=null){
             tabulaciones-=1;
