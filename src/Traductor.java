@@ -819,11 +819,27 @@ public class Traductor extends PsiCoderBaseListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override public void enterComparadorpara(PsiCoderParser.ComparadorparaContext ctx) {
-
-
+        if (ctx.ID()!=null){
+            cadena += ctx.ID().getText();
+        }
     }
 
     @Override public void exitComparadorpara(PsiCoderParser.ComparadorparaContext ctx) { }
+
+    @Override public void enterSegundocomparador(PsiCoderParser.SegundocomparadorContext ctx) { }
+
+    @Override public void exitSegundocomparador(PsiCoderParser.SegundocomparadorContext ctx) {
+
+    }
+
+
+    @Override public void enterSegcomfinal(PsiCoderParser.SegcomfinalContext ctx) {
+        if (ctx.ID()!=null){
+            cadena += ctx.ID().getText();
+        }
+    }
+
+    @Override public void exitSegcomfinal(PsiCoderParser.SegcomfinalContext ctx) { }
     /**
      * {@inheritDoc}
      *

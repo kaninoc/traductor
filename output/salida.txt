@@ -1,5 +1,8 @@
 function funcion_principal(){
-	for(let i = 0; < i += a;i += punto){
+	for(let i = 0;i < i += a;i += punto){
+		let a = prompt();
+	}
+	for(let i = 0;i < i += a || a < i += 10;i += punto){
 		let a = prompt();
 	}
 	return null;

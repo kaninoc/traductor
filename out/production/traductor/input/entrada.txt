@@ -2,4 +2,7 @@ funcion_principal
     para ( entero i = 0 ; i < a ; punto ) hacer
     leer(a);
     fin_para
+    para ( entero i = 0 ; i < a || a <10; punto ) hacer
+        leer(a);
+        fin_para
 fin_principal

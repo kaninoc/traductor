@@ -448,6 +448,26 @@ public interface PsiCoderListener extends ParseTreeListener {
 	 */
 	void exitComparadorpara(PsiCoderParser.ComparadorparaContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#segundocomparador}.
+	 * @param ctx the parse tree
+	 */
+	void enterSegundocomparador(PsiCoderParser.SegundocomparadorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#segundocomparador}.
+	 * @param ctx the parse tree
+	 */
+	void exitSegundocomparador(PsiCoderParser.SegundocomparadorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#segcomfinal}.
+	 * @param ctx the parse tree
+	 */
+	void enterSegcomfinal(PsiCoderParser.SegcomfinalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#segcomfinal}.
+	 * @param ctx the parse tree
+	 */
+	void exitSegcomfinal(PsiCoderParser.SegcomfinalContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PsiCoderParser#varcomparable}.
 	 * @param ctx the parse tree
 	 */

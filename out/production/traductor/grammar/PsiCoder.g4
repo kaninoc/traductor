@@ -66,7 +66,9 @@ contparaopt :PARA elementosparados HACER contenido+ FIN_PARA;
 elementospara: TK_PAR_IZQ ENTERO ID TK_ASIG TK_ENTERO TK_PYC comparadorpara complementopara;
 complementopara: TK_PYC varcomparable TK_PAR_DER;
 elementosparados: TK_PAR_IZQ ID TK_ASIG TK_ENTERO TK_PYC comparadorpara TK_PYC varcomparable TK_PAR_DER;
-comparadorpara : ID credec varcomparable (operadorlogico ID credec varcomparable)? ;
+comparadorpara : ID credec varcomparable segundocomparador?;
+segundocomparador: operadorlogico segcomfinal;
+segcomfinal: ID credec varcomparable;
 varcomparable : (ID | TK_ENTERO);
 credec : (TK_MENOR | TK_MAYOR | TK_MENOR_IGUAL | TK_MAYOR_IGUAL) ;
 
