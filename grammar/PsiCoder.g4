@@ -60,12 +60,11 @@ ciclohacer : HACER contenido+ MIENTRAS operacionlogica TK_PYC ;
 //ciclo para
 ciclopara : PARA elementospara contenidopara;
 contenidopara :HACER contenido+ FIN_PARA contparaopt?;
-contparaopt :PARA elementosparados HACER contenido+ FIN_PARA;
-
-//ciclopara : PARA elementospara HACER contenido+ FIN_PARA (PARA elementosparados HACER contenido+ FIN_PARA)?;
+contparaopt :PARA elementosparados contparaoptfinal;
+contparaoptfinal : HACER contenido+ FIN_PARA;
 elementospara: TK_PAR_IZQ ENTERO ID TK_ASIG TK_ENTERO TK_PYC comparadorpara complementopara;
 complementopara: TK_PYC varcomparable TK_PAR_DER;
-elementosparados: TK_PAR_IZQ ID TK_ASIG TK_ENTERO TK_PYC comparadorpara TK_PYC varcomparable TK_PAR_DER;
+elementosparados: TK_PAR_IZQ ID TK_ASIG TK_ENTERO TK_PYC comparadorpara complementopara;
 comparadorpara : ID credec varcomparable segundocomparador?;
 segundocomparador: operadorlogico segcomfinal;
 segcomfinal: ID credec varcomparable;

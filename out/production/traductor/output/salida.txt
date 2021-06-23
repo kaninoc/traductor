@@ -1,9 +1,22 @@
 function funcion_principal(){
 	for(let i = 0;i < i += a;i += punto){
 		let a = prompt();
+		if(num1>num2){
+			res = num1;
+		}else{
+			res = num2;
+		}
 	}
-	for(let i = 0;i < i += aa ||  < i += 10a;i += punto){
-		let a = prompt();
+	if(num1>num2){
+		for(let i = 0;i < i += a || a < i += 10;i += punto){
+			let a = prompt();
+		}
+	}
+	for(let i = 0;i < i += a;i++){
+		console.log(i);
+		for(let j = 0;i < j += a || j < j += 100;j += p){
+			Imprimir(j);
+		}
 	}
 	return null;
 }

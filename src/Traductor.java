@@ -747,29 +747,40 @@ public class Traductor extends PsiCoderBaseListener {
 
         }
     }
+    @Override public void enterContparaopt(PsiCoderParser.ContparaoptContext ctx) {
+        if (ctx.PARA()!=null){
+            cadena += calculartab(tabulaciones) + "for";
+            tabulaciones+=1;
+        }
+
+    }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterContparaopt(PsiCoderParser.ContparaoptContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void exitContparaopt(PsiCoderParser.ContparaoptContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void exitContparaopt(PsiCoderParser.ContparaoptContext ctx) {
+
+    }
+    @Override public void enterContparaoptfinal(PsiCoderParser.ContparaoptfinalContext ctx) {
+        if (ctx.HACER()!=null){
+            cadena += "{\n";
+        }
+    }
+    @Override public void exitContparaoptfinal(PsiCoderParser.ContparaoptfinalContext ctx) {
+        if (ctx.FIN_PARA()!=null){
+            tabulaciones-=1;
+            cadena+=calculartab(tabulaciones)+"}\n";
+
+        }
+    }
+
     @Override public void enterElementospara(PsiCoderParser.ElementosparaContext ctx) {
 
         if (ctx.TK_PAR_IZQ()!=null){
             cadena += ctx.TK_PAR_IZQ().getText();
         }
-        if (ctx.TK_ENTERO()!=null){
+        if (ctx.ENTERO()!=null){
             cadena += "let ";
         }
         if (ctx.ID()!=null){
@@ -806,12 +817,25 @@ public class Traductor extends PsiCoderBaseListener {
         }
     }
 
-    @Override public void enterElementosparados(PsiCoderParser.ElementosparadosContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterElementosparados(PsiCoderParser.ElementosparadosContext ctx) {
+        if (ctx.TK_PAR_IZQ()!=null){
+            cadena += ctx.TK_PAR_IZQ().getText();
+        }
+        if (ctx.ID()!=null){
+            cadena += ctx.ID().getText();
+            iterador =  ctx.ID().getText();
+        }
+        if (ctx.TK_ASIG()!=null){
+            cadena +=" "+ctx.TK_ASIG().getText()+" ";
+        }
+        if (ctx.TK_ENTERO()!=null){
+            cadena += ctx.TK_ENTERO().getText();
+        }
+        if (ctx.TK_PYC()!=null){
+            cadena += ctx.TK_PYC().getText();
+        }
+    }
+
     @Override public void exitElementosparados(PsiCoderParser.ElementosparadosContext ctx) { }
     /**
      * {@inheritDoc}

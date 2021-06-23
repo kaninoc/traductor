@@ -496,6 +496,18 @@ public class PsiCoderBaseListener implements PsiCoderListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterContparaoptfinal(PsiCoderParser.ContparaoptfinalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitContparaoptfinal(PsiCoderParser.ContparaoptfinalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterElementospara(PsiCoderParser.ElementosparaContext ctx) { }
 	/**
 	 * {@inheritDoc}
