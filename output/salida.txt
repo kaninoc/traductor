@@ -1,24 +1,6 @@
 function funcion_principal(){
-	let num1:number = 6;
-	let num2:number = 4;
-	let res:number;
-	if(num1>num2){
-		res = num1;
-		if(res==6){
-			console.log("Test if");
-		}else{
-			console.log("Test sino");
-		}
-	}else{
-		res = num2;
-	}
-	if(num1>num2 && num1<10){
-		res = num1;
-		if(res==0){
-			console.log("Test if");
-		}
-	}else{
-		res = num2;
+	for(let i = 0; < i += a;i += punto){
+		let a = prompt();
 	}
 	return null;
 }

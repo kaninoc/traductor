@@ -388,6 +388,26 @@ public interface PsiCoderListener extends ParseTreeListener {
 	 */
 	void exitCiclopara(PsiCoderParser.CicloparaContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#contenidopara}.
+	 * @param ctx the parse tree
+	 */
+	void enterContenidopara(PsiCoderParser.ContenidoparaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#contenidopara}.
+	 * @param ctx the parse tree
+	 */
+	void exitContenidopara(PsiCoderParser.ContenidoparaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#contparaopt}.
+	 * @param ctx the parse tree
+	 */
+	void enterContparaopt(PsiCoderParser.ContparaoptContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#contparaopt}.
+	 * @param ctx the parse tree
+	 */
+	void exitContparaopt(PsiCoderParser.ContparaoptContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PsiCoderParser#elementospara}.
 	 * @param ctx the parse tree
 	 */
@@ -397,6 +417,16 @@ public interface PsiCoderListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitElementospara(PsiCoderParser.ElementosparaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#complementopara}.
+	 * @param ctx the parse tree
+	 */
+	void enterComplementopara(PsiCoderParser.ComplementoparaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#complementopara}.
+	 * @param ctx the parse tree
+	 */
+	void exitComplementopara(PsiCoderParser.ComplementoparaContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PsiCoderParser#elementosparados}.
 	 * @param ctx the parse tree

@@ -472,6 +472,30 @@ public class PsiCoderBaseListener implements PsiCoderListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterContenidopara(PsiCoderParser.ContenidoparaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitContenidopara(PsiCoderParser.ContenidoparaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterContparaopt(PsiCoderParser.ContparaoptContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitContparaopt(PsiCoderParser.ContparaoptContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterElementospara(PsiCoderParser.ElementosparaContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -479,6 +503,18 @@ public class PsiCoderBaseListener implements PsiCoderListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitElementospara(PsiCoderParser.ElementosparaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterComplementopara(PsiCoderParser.ComplementoparaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComplementopara(PsiCoderParser.ComplementoparaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

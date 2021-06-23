@@ -45,7 +45,6 @@ varimpresion: TK_BOOLEANO | TK_ENTERO | TK_REAL | TK_CARACTER | TK_CADENA | oper
 condicional : SI operacionlogica cuerpoif ;
 cuerpoif : ENTONCES contenido+ sino;
 sino : (SI_NO contenido+)? FIN_SI;
-//cuerpoif : ENTONCES contenido+  ;
 operacionlogica : TK_PAR_IZQ  varimpresion  comparador varimpresion (operadorlogico varimpresion  comparador varimpresion )? TK_PAR_DER;
 
 //tokens referentes a operaciones logicas
@@ -59,8 +58,13 @@ ciclomientras : MIENTRAS operacionlogica HACER contenido+ FIN_MIENTRAS ;
 ciclohacer : HACER contenido+ MIENTRAS operacionlogica TK_PYC ;
 
 //ciclo para
-ciclopara : PARA elementospara HACER contenido+ FIN_PARA (PARA elementosparados HACER contenido+ FIN_PARA)?;
-elementospara: TK_PAR_IZQ ENTERO ID TK_ASIG TK_ENTERO TK_PYC comparadorpara TK_PYC varcomparable TK_PAR_DER;
+ciclopara : PARA elementospara contenidopara;
+contenidopara :HACER contenido+ FIN_PARA contparaopt?;
+contparaopt :PARA elementosparados HACER contenido+ FIN_PARA;
+
+//ciclopara : PARA elementospara HACER contenido+ FIN_PARA (PARA elementosparados HACER contenido+ FIN_PARA)?;
+elementospara: TK_PAR_IZQ ENTERO ID TK_ASIG TK_ENTERO TK_PYC comparadorpara complementopara;
+complementopara: TK_PYC varcomparable TK_PAR_DER;
 elementosparados: TK_PAR_IZQ ID TK_ASIG TK_ENTERO TK_PYC comparadorpara TK_PYC varcomparable TK_PAR_DER;
 comparadorpara : ID credec varcomparable (operadorlogico ID credec varcomparable)? ;
 varcomparable : (ID | TK_ENTERO);

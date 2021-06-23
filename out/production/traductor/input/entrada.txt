@@ -1,24 +1,5 @@
 funcion_principal
-    entero num1 = 6;
-    entero num2 = 4;
-    entero res;
-    si ( num1 > num2 ) entonces
-       res = num1;
-       si( res == 6 ) entonces
-            imprimir("Test if");
-        si_no
-            imprimir("Test sino");
-        fin_si
-    si_no
-       res = num2;
-    fin_si
-
-    si ( num1 > num2 && num1 < 10) entonces
-       res = num1;
-       si( res == 0 ) entonces
-            imprimir("Test if");
-       fin_si
-    si_no
-       res = num2;
-    fin_si
+    para ( entero i = 0 ; i < a ; punto ) hacer
+    leer(a);
+    fin_para
 fin_principal

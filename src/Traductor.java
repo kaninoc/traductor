@@ -9,6 +9,7 @@ public class Traductor extends PsiCoderBaseListener {
     public static int tabulaciones = 0;//espacios dependiendo de los metodos
     public static String tipovariable = "nulo";
     public static boolean impresion =false;
+    public static String iterador = "nulo";
 
     public String escribir(String token){
         cadena = cadena+token;
@@ -723,30 +724,88 @@ public class Traductor extends PsiCoderBaseListener {
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterCiclopara(PsiCoderParser.CicloparaContext ctx) { }
+    @Override public void enterCiclopara(PsiCoderParser.CicloparaContext ctx) {
+        if (ctx.PARA()!=null){
+            cadena += calculartab(tabulaciones) + "for";
+            tabulaciones+=1;
+        }
+
+    }
+
+    @Override public void exitCiclopara(PsiCoderParser.CicloparaContext ctx) {
+
+    }
+    @Override public void enterContenidopara(PsiCoderParser.ContenidoparaContext ctx) {
+        if (ctx.HACER()!=null){
+            cadena+="{\n";
+        }
+    }
+    @Override public void exitContenidopara(PsiCoderParser.ContenidoparaContext ctx) {
+        if (ctx.FIN_PARA()!=null){
+            tabulaciones-=1;
+            cadena+=calculartab(tabulaciones)+"}\n";
+
+        }
+    }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void exitCiclopara(PsiCoderParser.CicloparaContext ctx) { }
+    @Override public void enterContparaopt(PsiCoderParser.ContparaoptContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterElementospara(PsiCoderParser.ElementosparaContext ctx) { }
+    @Override public void exitContparaopt(PsiCoderParser.ContparaoptContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
+    @Override public void enterElementospara(PsiCoderParser.ElementosparaContext ctx) {
+
+        if (ctx.TK_PAR_IZQ()!=null){
+            cadena += ctx.TK_PAR_IZQ().getText();
+        }
+        if (ctx.TK_ENTERO()!=null){
+            cadena += "let ";
+        }
+        if (ctx.ID()!=null){
+            cadena += ctx.ID().getText();
+            iterador =  ctx.ID().getText();
+        }
+        if (ctx.TK_ASIG()!=null){
+            cadena +=" "+ctx.TK_ASIG().getText()+" ";
+        }
+        if (ctx.TK_ENTERO()!=null){
+            cadena += ctx.TK_ENTERO().getText();
+        }
+        if (ctx.TK_PYC()!=null){
+            cadena += ctx.TK_PYC().getText();
+        }
+
+    }
+
     @Override public void exitElementospara(PsiCoderParser.ElementosparaContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
+    @Override public void enterComplementopara(PsiCoderParser.ComplementoparaContext ctx) {
+        if (ctx.TK_PYC()!=null){
+            cadena += ctx.TK_PYC().getText();
+        }
+    }
+
+    @Override public void exitComplementopara(PsiCoderParser.ComplementoparaContext ctx) {
+        if (ctx.TK_PAR_DER()!=null){
+            cadena += ctx.TK_PAR_DER().getText();
+        }
+    }
+
     @Override public void enterElementosparados(PsiCoderParser.ElementosparadosContext ctx) { }
     /**
      * {@inheritDoc}
@@ -759,31 +818,52 @@ public class Traductor extends PsiCoderBaseListener {
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterComparadorpara(PsiCoderParser.ComparadorparaContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterComparadorpara(PsiCoderParser.ComparadorparaContext ctx) {
+
+
+    }
+
     @Override public void exitComparadorpara(PsiCoderParser.ComparadorparaContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterVarcomparable(PsiCoderParser.VarcomparableContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterVarcomparable(PsiCoderParser.VarcomparableContext ctx) {
+        if (ctx.TK_ENTERO()!=null){
+            if (ctx.TK_ENTERO().getText().equals("1")) {
+                cadena += iterador + "++";
+            }else{
+                cadena += iterador + " += "+ctx.TK_ENTERO().getText();
+            }
+        }
+        if (ctx.ID()!=null){
+            cadena += iterador + " += "+ctx.ID().getText();
+        }
+    }
+
     @Override public void exitVarcomparable(PsiCoderParser.VarcomparableContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterCredec(PsiCoderParser.CredecContext ctx) { }
+    @Override public void enterCredec(PsiCoderParser.CredecContext ctx) {
+
+        if (ctx.TK_MENOR_IGUAL()!=null){
+            cadena+=" "+ctx.TK_MENOR_IGUAL().getText()+" ";
+        }
+        if (ctx.TK_MAYOR_IGUAL()!=null){
+            cadena+=" "+ctx.TK_MAYOR_IGUAL().getText()+" ";
+        }
+        if (ctx.TK_MENOR()!=null){
+            cadena+=" "+ctx.TK_MENOR().getText()+" ";
+        }
+        if (ctx.TK_MAYOR()!=null){
+            cadena+=" "+ctx.TK_MAYOR().getText()+" ";
+        }
+
+    }
     /**
      * {@inheritDoc}
      *
