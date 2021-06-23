@@ -1,14 +1,11 @@
-function sum(a : number, b : number) : number {
-	console.log(a, b);
-	return a + b;
-}
-function prismaArea(a : number, b : number, c : number) : number {
-	return a * b * c;
+let C ={
+	bandera : boolean;
+	flag : boolean;
 }
 function funcion_principal(){
-	console.log(sum(1,2.5), frase("mundo"), prismaArea(3,4.5,9));
+	let p = Point;
+	p.x = 5;
+	p.y = 10;
+	p.c.a = 5;
 	return null;
-}function frase(h : string) : string {
-	let s:string = "hola";
-	return s;
 }

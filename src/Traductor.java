@@ -3,6 +3,8 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.util.Stack;
+
 public class Traductor extends PsiCoderBaseListener {
 
     public static String cadena = "";// contiene toda la traduccion que se muestra por consola ypor el archivo salida.txt
@@ -13,8 +15,11 @@ public class Traductor extends PsiCoderBaseListener {
     public static boolean impresion =false;
     public static String iterador = "nulo";
     public static boolean flagcase =true;
+    public static boolean estructura =false;
+    public static Stack<String> elementosestructura = new Stack<>();//elementos de interfaz traduccion typescript
+    public static Stack<String> idsestructura = new Stack<>();//ids de interfaz traduccion typescript
 
-    public String escribir(String token){
+    public String escribir(String token){//captura toda la traduccion en una cadena
         cadena = cadena+token;
         return  cadena;
     }
@@ -31,7 +36,6 @@ public class Traductor extends PsiCoderBaseListener {
         if(ctx.FP()!=null){
             cadena += "function funcion_principal(){\n";
             tabulaciones+=1;
-            //System.out.print("function funcion_principal(){\n");
         }
 
 
@@ -39,10 +43,9 @@ public class Traductor extends PsiCoderBaseListener {
 
 
     @Override public void exitF_principal(PsiCoderParser.F_principalContext ctx) {
-        //System.out.println("\nTraduccion realizada con exito");
+
         if(ctx.FFP()!=null){
             cadena += calculartab(tabulaciones) +"return null;\n" +"}";
-            //System.out.print(calculartab(tabulaciones) +"return null;\n" +"}");
             tabulaciones-=1;
         }
 
@@ -88,14 +91,24 @@ public class Traductor extends PsiCoderBaseListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override public void enterVarBooleano(PsiCoderParser.VarBooleanoContext ctx) {
+
+
         if(ctx.BOOLEANO() != null){
-            if (tipovariable.equals("nulo")){
-                cadena += calculartab(tabulaciones)+"let ";
-                tipovariable = "boolean";
+            if(!estructura) {
+                if (tipovariable.equals("nulo")) {
+                    cadena += calculartab(tabulaciones) + "let ";
+                    tipovariable = "boolean";
+                }
+            }else{
+                elementosestructura.add("boolean");
             }
         }
         if(ctx.ID() != null){
-            cadena+=ctx.ID().getText()+":"+tipovariable;
+            if(!estructura) {
+                cadena += ctx.ID().getText() + ":" + tipovariable;
+            }else{
+                idsestructura.add(ctx.ID().getText());
+            }
         }
 
     }
@@ -128,8 +141,10 @@ public class Traductor extends PsiCoderBaseListener {
 
     @Override public void exitExtvarB(PsiCoderParser.ExtvarBContext ctx) {
         if (ctx.TK_PYC()!=null){
-            cadena+=ctx.TK_PYC().getText()+"\n";
-            tipovariable = "nulo";
+            if(!estructura) {
+                cadena += ctx.TK_PYC().getText() + "\n";
+                tipovariable = "nulo";
+            }
         }
     }
 
@@ -1037,13 +1052,35 @@ public class Traductor extends PsiCoderBaseListener {
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterEstructuras(PsiCoderParser.EstructurasContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void exitEstructuras(PsiCoderParser.EstructurasContext ctx) { }
+    @Override public void enterEstructuras(PsiCoderParser.EstructurasContext ctx) {
+        if(ctx.ESTRUCTURA()!=null){
+            cadena += "let ";
+            tabulaciones+=1;
+            estructura = true;
+        }
+        if(ctx.ID()!=null){
+            cadena += ctx.ID().getText() + " ={\n";
+        }
+
+    }
+
+    @Override public void exitEstructuras(PsiCoderParser.EstructurasContext ctx) {
+        if (ctx.FIN_ESTRUCTURA()!=null){
+            for (String var: elementosestructura) {
+                System.out.println(var);
+            }
+            for (String var: idsestructura) {
+                System.out.println(var);
+            }
+            while(!elementosestructura.isEmpty()){
+                cadena+=calculartab(tabulaciones)+idsestructura.pop()+" : "+elementosestructura.pop()+";\n";
+            }
+
+            tabulaciones-=1;
+            cadena+="}\n";
+            estructura = false;
+        }
+    }
     /**
      * {@inheritDoc}
      *
@@ -1069,11 +1106,7 @@ public class Traductor extends PsiCoderBaseListener {
     }
 
     @Override public void exitCierredecfuncion(PsiCoderParser.CierredecfuncionContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+
 
     @Override public void exitDecfuncion(PsiCoderParser.DecfuncionContext ctx) {
 
@@ -1101,6 +1134,8 @@ public class Traductor extends PsiCoderBaseListener {
         if (ctx.FIN_FUNCION()!=null){
             cadena+="}\n";
             tabulaciones-=1;
+            tipovariablefuncion = "nulo";
+            parametros = "nulo";
         }
 
     }
@@ -1149,7 +1184,6 @@ public class Traductor extends PsiCoderBaseListener {
      */
 
     @Override public void enterTipofuncion(PsiCoderParser.TipofuncionContext ctx) {
-        //System.out.println(tipovariablefuncion);
 
     if (tipovariablefuncion.equals("nulo")){
 
@@ -1172,23 +1206,18 @@ public class Traductor extends PsiCoderBaseListener {
 
         if (ctx.BOOLEANO()!=null){
             parametros="boolean";
-            System.out.println(parametros);
         }
         if (ctx.ENTERO()!=null){
             parametros = "number";
-            System.out.println(parametros);
         }
         if (ctx.REAL()!=null){
             parametros = "number";
-            System.out.println(parametros);
         }
         if (ctx.CARACTER()!=null){
             parametros = "string";
-            System.out.println(parametros);
         }
         if (ctx.CADENA()!=null){
             parametros = "string";
-            System.out.println(parametros);
         }
     }
 
