@@ -73,8 +73,9 @@ credec : (TK_MENOR | TK_MAYOR | TK_MENOR_IGUAL | TK_MAYOR_IGUAL) ;
 
 //seleccion multiple
 multiple : SELECCIONAR TK_PAR_IZQ ID TK_PAR_DER ENTRE casos FIN_SELECCIONAR;
-casos : (CASO TK_ENTERO TK_DOSP contenido+ (ROMPER TK_PYC)?)+ (DEFECTO TK_DOSP contenido*)? | (DEFECTO TK_DOSP contenido*) ;
-
+casos : multiplescasos+ defecto? | defecto;
+multiplescasos: (CASO TK_ENTERO TK_DOSP contenido+ (ROMPER TK_PYC)?);
+defecto: DEFECTO TK_DOSP contenido*;
 //declaracion y asignacion de estructuras
 estructuras : ESTRUCTURA ID declaracion+ FIN_ESTRUCTURA ;
 

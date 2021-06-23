@@ -10,6 +10,7 @@ public class Traductor extends PsiCoderBaseListener {
     public static String tipovariable = "nulo";
     public static boolean impresion =false;
     public static String iterador = "nulo";
+    public static boolean flagcase =true;
 
     public String escribir(String token){
         cadena = cadena+token;
@@ -944,18 +945,33 @@ public class Traductor extends PsiCoderBaseListener {
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterMultiple(PsiCoderParser.MultipleContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void exitMultiple(PsiCoderParser.MultipleContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterMultiple(PsiCoderParser.MultipleContext ctx) {
+        if (ctx.SELECCIONAR()!=null){
+            cadena+=calculartab(tabulaciones)+"switch";
+            tabulaciones+=1;
+        }
+        if (ctx.TK_PAR_IZQ()!=null){
+            cadena+=ctx.TK_PAR_IZQ().getText();
+        }
+        if (ctx.ID()!=null){
+            cadena+=ctx.ID().getText();
+        }
+        if (ctx.TK_PAR_DER()!=null){
+            cadena+=ctx.TK_PAR_DER().getText();
+        }
+        if (ctx.ENTRE()!=null){
+            cadena+="{\n";
+        }
+
+    }
+
+    @Override public void exitMultiple(PsiCoderParser.MultipleContext ctx) {
+        if (ctx.FIN_SELECCIONAR()!=null){
+            tabulaciones-=1;
+            cadena+=calculartab(tabulaciones)+"}\n";
+        }
+    }
+
     @Override public void enterCasos(PsiCoderParser.CasosContext ctx) { }
     /**
      * {@inheritDoc}
@@ -963,6 +979,65 @@ public class Traductor extends PsiCoderBaseListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override public void exitCasos(PsiCoderParser.CasosContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterMultiplescasos(PsiCoderParser.MultiplescasosContext ctx) {
+        if (ctx.CASO()!=null){
+            if (flagcase==true){
+                cadena+=calculartab(tabulaciones)+"case";
+                tabulaciones+=1;
+                flagcase = false;
+            }else{
+                tabulaciones-=1;
+                cadena+=calculartab(tabulaciones)+"case";
+                tabulaciones+=1;
+            }
+
+        }
+        if (ctx.TK_ENTERO()!=null){
+            cadena+=" "+ctx.TK_ENTERO().getText()+" ";
+        }
+        if (ctx.TK_DOSP()!=null){
+            cadena+=ctx.TK_DOSP().getText()+"\n";
+        }
+
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitMultiplescasos(PsiCoderParser.MultiplescasosContext ctx) {
+        if (ctx.ROMPER()!=null){
+            tabulaciones-=1;
+            cadena+=calculartab(tabulaciones) + "break";
+            flagcase = true;
+        }
+        if (ctx.TK_PYC()!=null){
+            cadena+=ctx.TK_PYC().getText()+"\n";
+
+        }
+    }
+
+    @Override public void enterDefecto(PsiCoderParser.DefectoContext ctx) {
+
+        if (ctx.DEFECTO()!=null){
+            cadena+=calculartab(tabulaciones)+"default";
+        }
+        if (ctx.TK_DOSP()!=null){
+            cadena+=ctx.TK_DOSP().getText()+"\n";
+            tabulaciones+=1;
+        }
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitDefecto(PsiCoderParser.DefectoContext ctx) { }
     /**
      * {@inheritDoc}
      *

@@ -538,6 +538,26 @@ public interface PsiCoderListener extends ParseTreeListener {
 	 */
 	void exitCasos(PsiCoderParser.CasosContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#multiplescasos}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultiplescasos(PsiCoderParser.MultiplescasosContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#multiplescasos}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultiplescasos(PsiCoderParser.MultiplescasosContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#defecto}.
+	 * @param ctx the parse tree
+	 */
+	void enterDefecto(PsiCoderParser.DefectoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#defecto}.
+	 * @param ctx the parse tree
+	 */
+	void exitDefecto(PsiCoderParser.DefectoContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PsiCoderParser#estructuras}.
 	 * @param ctx the parse tree
 	 */

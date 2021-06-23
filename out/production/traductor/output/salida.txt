@@ -1,13 +1,18 @@
 function funcion_principal(){
-	let var1:number = 10;
-	let var2:number = 0;
-	do{
-		while(var1>=-10){
-			inprimir(var1);
-			var1 = var1 - 4;
+	let a:number;
+	let a = prompt();
+	switch(a){
+		case 0 :
+			console.log(a);
+		case 1 :
+			console.log(a * 2);
+		case 2 :
+			console.log(a * 4);
+		break;
+		default:
+			if(a!=0){
+				console.log(a * 5);
+			}
 		}
-		console.log(var2);
-		var2 = var2 + 3;
-	}while(var2<40);
-	return null;
+		return null;
 }
