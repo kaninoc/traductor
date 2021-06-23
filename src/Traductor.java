@@ -973,11 +973,7 @@ public class Traductor extends PsiCoderBaseListener {
     }
 
     @Override public void enterCasos(PsiCoderParser.CasosContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+
     @Override public void exitCasos(PsiCoderParser.CasosContext ctx) { }
     /**
      * {@inheritDoc}
