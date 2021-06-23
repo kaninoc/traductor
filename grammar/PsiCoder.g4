@@ -55,8 +55,8 @@ comparador: TK_MENOR | TK_MAYOR | TK_MENOR_IGUAL | TK_MAYOR_IGUAL | TK_IGUAL | T
 ciclomientras : MIENTRAS operacionlogica cuerpociclomientras;
 cuerpociclomientras: HACER contenido+ FIN_MIENTRAS ;
 //ciclo hacer
-ciclohacer : HACER contenido+ MIENTRAS operacionlogica TK_PYC ;
-
+ciclohacer : HACER contenido+ cuerpociclohacer;
+cuerpociclohacer: MIENTRAS operacionlogica TK_PYC;
 //ciclo para
 ciclopara : PARA elementospara contenidopara;
 contenidopara :HACER contenido+ FIN_PARA contparaopt?;

@@ -1,21 +1,13 @@
 function funcion_principal(){
-	while(a>0){
-		while(b<=a){
-			console.log(a, b);
+	let var1:number = 10;
+	let var2:number = 0;
+	do{
+		while(var1>=-10){
+			console.log(var1);
+			var1 = var1 - 4;
 		}
-		if(num1>num2){
-			res = num1;
-			if(res==6){
-				console.log("Test if");
-			}else{
-				console.log("Test sino");
-			}
-		}else{
-			res = num2;
-			for(let j = 0;i < j += a;j += p){
-				Imprimir(j);
-			}
-		}
-	}
+		console.log(var2);
+		var2 = var2 + 3;
+	}while(var2<40);
 	return null;
 }

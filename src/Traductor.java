@@ -727,13 +727,35 @@ public class Traductor extends PsiCoderBaseListener {
         }
     }
 
-    @Override public void enterCiclohacer(PsiCoderParser.CiclohacerContext ctx) { }
+    @Override public void enterCiclohacer(PsiCoderParser.CiclohacerContext ctx) {
+        if (ctx.HACER()!=null){
+            cadena+=calculartab(tabulaciones)+"do{\n";
+            tabulaciones+=1;
+        }
+    }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
     @Override public void exitCiclohacer(PsiCoderParser.CiclohacerContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterCuerpociclohacer(PsiCoderParser.CuerpociclohacerContext ctx) {
+        if (ctx.MIENTRAS()!=null){
+            tabulaciones-=1;
+            cadena+=calculartab(tabulaciones)+"}while";
+        }
+    }
+
+    @Override public void exitCuerpociclohacer(PsiCoderParser.CuerpociclohacerContext ctx) {
+        if (ctx.TK_PYC()!=null){
+            cadena+=ctx.TK_PYC().getText()+"\n";
+        }
+    }
     /**
      * {@inheritDoc}
      *

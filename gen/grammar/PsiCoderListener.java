@@ -388,6 +388,16 @@ public interface PsiCoderListener extends ParseTreeListener {
 	 */
 	void exitCiclohacer(PsiCoderParser.CiclohacerContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#cuerpociclohacer}.
+	 * @param ctx the parse tree
+	 */
+	void enterCuerpociclohacer(PsiCoderParser.CuerpociclohacerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#cuerpociclohacer}.
+	 * @param ctx the parse tree
+	 */
+	void exitCuerpociclohacer(PsiCoderParser.CuerpociclohacerContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PsiCoderParser#ciclopara}.
 	 * @param ctx the parse tree
 	 */

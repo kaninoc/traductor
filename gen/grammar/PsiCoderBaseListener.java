@@ -472,6 +472,18 @@ public class PsiCoderBaseListener implements PsiCoderListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCuerpociclohacer(PsiCoderParser.CuerpociclohacerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCuerpociclohacer(PsiCoderParser.CuerpociclohacerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCiclopara(PsiCoderParser.CicloparaContext ctx) { }
 	/**
 	 * {@inheritDoc}

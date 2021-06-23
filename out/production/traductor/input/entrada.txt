@@ -1,21 +1,12 @@
 funcion_principal
-    mientras ( a > 0 ) hacer
-        mientras ( b <= a ) hacer
-            imprimir(a,b);
+    entero var1 = 10;
+    entero var2 = 0;
+    hacer
+        mientras(var1 >= -10) hacer
+            imprimir(var1);
+            var1 = var1 - 4;
         fin_mientras
-    si ( num1 > num2 ) entonces
-           res = num1;
-           si( res == 6 ) entonces
-                imprimir("Test if");
-            si_no
-                imprimir("Test sino");
-            fin_si
-        si_no
-           res = num2;
-           para (entero j = 0; i < a ; p ) hacer
-                Imprimir(j);
-           fin_para
-        fin_si
-
-    fin_mientras
+        imprimir(var2);
+        var2 = var2+3;
+    mientras( var2 < 40 ); // debe terminar en punto y coma
 fin_principal
