@@ -52,8 +52,8 @@ operadorlogico: TK_Y | TK_O;
 comparador: TK_MENOR | TK_MAYOR | TK_MENOR_IGUAL | TK_MAYOR_IGUAL | TK_IGUAL | TK_DIF;
 
 //ciclo mientras
-ciclomientras : MIENTRAS operacionlogica HACER contenido+ FIN_MIENTRAS ;
-
+ciclomientras : MIENTRAS operacionlogica cuerpociclomientras;
+cuerpociclomientras: HACER contenido+ FIN_MIENTRAS ;
 //ciclo hacer
 ciclohacer : HACER contenido+ MIENTRAS operacionlogica TK_PYC ;
 

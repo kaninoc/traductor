@@ -700,18 +700,33 @@ public class Traductor extends PsiCoderBaseListener {
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterCiclomientras(PsiCoderParser.CiclomientrasContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+    @Override public void enterCiclomientras(PsiCoderParser.CiclomientrasContext ctx) {
+        if (ctx.MIENTRAS()!=null){
+            cadena+=calculartab(tabulaciones)+"while";
+            tabulaciones+=1;
+        }
+    }
+
     @Override public void exitCiclomientras(PsiCoderParser.CiclomientrasContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
+    @Override public void enterCuerpociclomientras(PsiCoderParser.CuerpociclomientrasContext ctx) {
+        if (ctx.HACER()!=null){
+            cadena+="{\n";
+        }
+    }
+
+    @Override public void exitCuerpociclomientras(PsiCoderParser.CuerpociclomientrasContext ctx) {
+        if (ctx.FIN_MIENTRAS()!=null){
+            tabulaciones-=1;
+            cadena+=calculartab(tabulaciones)+"}\n";
+
+        }
+    }
+
     @Override public void enterCiclohacer(PsiCoderParser.CiclohacerContext ctx) { }
     /**
      * {@inheritDoc}

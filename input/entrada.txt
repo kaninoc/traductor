@@ -1,24 +1,21 @@
 funcion_principal
-    para ( entero i = 0 ; i < a ; punto ) hacer
-    leer(a);
+    mientras ( a > 0 ) hacer
+        mientras ( b <= a ) hacer
+            imprimir(a,b);
+        fin_mientras
     si ( num1 > num2 ) entonces
            res = num1;
+           si( res == 6 ) entonces
+                imprimir("Test if");
+            si_no
+                imprimir("Test sino");
+            fin_si
         si_no
            res = num2;
+           para (entero j = 0; i < a ; p ) hacer
+                Imprimir(j);
+           fin_para
         fin_si
 
-    fin_para
-    si ( num1 > num2 ) entonces
-    para ( entero i = 0 ; i < a || a <10; punto ) hacer
-        leer(a);
-        fin_para
-    fin_si
-
-    para ( entero i = 0 ; i < a ; 1 ) hacer
-         imprimir(i);
-         para (entero j = 0; i < a ; p ) hacer
-            Imprimir(j);
-         fin_para
-    fin_para
-
+    fin_mientras
 fin_principal
