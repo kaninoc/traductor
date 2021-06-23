@@ -8,6 +8,8 @@ public class Traductor extends PsiCoderBaseListener {
     public static String cadena = "";// contiene toda la traduccion que se muestra por consola ypor el archivo salida.txt
     public static int tabulaciones = 0;//espacios dependiendo de los metodos
     public static String tipovariable = "nulo";
+    public static String tipovariablefuncion = "nulo";
+    public static String parametros = "nulo";
     public static boolean impresion =false;
     public static String iterador = "nulo";
     public static boolean flagcase =true;
@@ -1028,11 +1030,7 @@ public class Traductor extends PsiCoderBaseListener {
             tabulaciones+=1;
         }
     }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+
     @Override public void exitDefecto(PsiCoderParser.DefectoContext ctx) { }
     /**
      * {@inheritDoc}
@@ -1051,36 +1049,151 @@ public class Traductor extends PsiCoderBaseListener {
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterDecfuncion(PsiCoderParser.DecfuncionContext ctx) { }
+    @Override public void enterDecfuncion(PsiCoderParser.DecfuncionContext ctx) {
+        if (ctx.FUNCION()!=null){
+            cadena+=calculartab(tabulaciones)+"function ";
+            tabulaciones+=1;
+        }
+        if (ctx.ID()!=null){
+            cadena+=ctx.ID().getText();
+        }
+        if (ctx.TK_PAR_IZQ() != null) {
+            cadena+=ctx.TK_PAR_IZQ().getText();
+        }
+
+    }
+    @Override public void enterCierredecfuncion(PsiCoderParser.CierredecfuncionContext ctx) {
+        if(ctx.TK_PAR_DER()!=null){
+            cadena+=ctx.TK_PAR_DER().getText();
+        }
+    }
+
+    @Override public void exitCierredecfuncion(PsiCoderParser.CierredecfuncionContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void exitDecfuncion(PsiCoderParser.DecfuncionContext ctx) { }
+
+    @Override public void exitDecfuncion(PsiCoderParser.DecfuncionContext ctx) {
+
+    }
+    @Override public void enterCuerpodecfuncion(PsiCoderParser.CuerpodecfuncionContext ctx) {
+        if (ctx.HACER()!=null){
+            cadena+=" : "+tipovariablefuncion+" {\n";
+        }
+
+    }
+    @Override public void exitCuerpodecfuncion(PsiCoderParser.CuerpodecfuncionContext ctx) {
+
+    }
+    @Override public void enterRetornar(PsiCoderParser.RetornarContext ctx) {
+        if (ctx.RETORNAR()!=null){
+            cadena+=calculartab(tabulaciones)+ "return ";
+        }
+    }
+
+    @Override public void exitRetornar(PsiCoderParser.RetornarContext ctx) {
+        if (ctx.TK_PYC()!=null){
+            cadena+=ctx.TK_PYC().getText()+"\n";
+            tipovariablefuncion = "nulo";
+        }
+        if (ctx.FIN_FUNCION()!=null){
+            cadena+="}\n";
+            tabulaciones-=1;
+        }
+
+    }
+
+
+    @Override public void enterParametros(PsiCoderParser.ParametrosContext ctx) {
+
+    }
+
+    @Override public void exitParametros(PsiCoderParser.ParametrosContext ctx) {
+
+    }
+    @Override public void enterComplementoparametros(PsiCoderParser.ComplementoparametrosContext ctx) {
+        if (ctx.ID()!=null){
+            cadena+=ctx.ID().getText()+" : "+parametros;
+        }
+    }
+
+    @Override public void exitComplementoparametros(PsiCoderParser.ComplementoparametrosContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void enterParametros(PsiCoderParser.ParametrosContext ctx) { }
+
+    @Override public void enterMasparametros(PsiCoderParser.MasparametrosContext ctx) {
+        if (ctx.TK_COMA()!=null){
+            cadena+=ctx.TK_COMA().getText()+" ";
+        }
+
+    }
+
+    @Override public void exitMasparametros(PsiCoderParser.MasparametrosContext ctx) { }
+
+    @Override public void enterNextid(PsiCoderParser.NextidContext ctx) {
+        if (ctx.ID()!=null){
+            cadena+=ctx.ID().getText()+" : "+parametros;
+        }
+    }
+
+    @Override public void exitNextid(PsiCoderParser.NextidContext ctx) { }
     /**
      * {@inheritDoc}
      *
      * <p>The default implementation does nothing.</p>
      */
-    @Override public void exitParametros(PsiCoderParser.ParametrosContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
-    @Override public void enterTipofuncion(PsiCoderParser.TipofuncionContext ctx) { }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+
+    @Override public void enterTipofuncion(PsiCoderParser.TipofuncionContext ctx) {
+        //System.out.println(tipovariablefuncion);
+
+    if (tipovariablefuncion.equals("nulo")){
+
+        if (ctx.BOOLEANO()!=null){
+            tipovariablefuncion = "boolean";
+        }
+        if (ctx.ENTERO()!=null){
+            tipovariablefuncion = "number";
+        }
+        if (ctx.REAL()!=null){
+            tipovariablefuncion = "number";
+        }
+        if (ctx.CARACTER()!=null){
+            tipovariablefuncion = "string";
+        }
+        if (ctx.CADENA()!=null){
+            tipovariablefuncion = "string";
+        }
+    }else{
+
+        if (ctx.BOOLEANO()!=null){
+            parametros="boolean";
+            System.out.println(parametros);
+        }
+        if (ctx.ENTERO()!=null){
+            parametros = "number";
+            System.out.println(parametros);
+        }
+        if (ctx.REAL()!=null){
+            parametros = "number";
+            System.out.println(parametros);
+        }
+        if (ctx.CARACTER()!=null){
+            parametros = "string";
+            System.out.println(parametros);
+        }
+        if (ctx.CADENA()!=null){
+            parametros = "string";
+            System.out.println(parametros);
+        }
+    }
+
+    }
+
     @Override public void exitTipofuncion(PsiCoderParser.TipofuncionContext ctx) { }
 
     /**

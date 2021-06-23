@@ -7,7 +7,7 @@ f_principal: FP contenido+ FFP;
 //llena con cada una de las distintas intrucciones que pueden estar dentro de una función
 contenido: declaracion | lectura | imprimir | condicional | ciclomientras | ciclohacer | ciclopara | multiple | asigfuncion ;
 
-//declaracion y asignacion de todas kas posibles variables
+//declaracion y asignacion de todas las posibles variables
 declaracion: varBooleano | varEntero | varReal | varCaracter | varCadena | varEstructura | varAsigEstructura | varDeclarada;
 varBooleano : BOOLEANO ID extvarB;//declaraciones para variables de tipo booleano
 extvarB : TK_PYC | TK_ASIG TK_BOOLEANO extvarB | TK_COMA ID extvarB;  //multiples variables y asignaciones booleano
@@ -80,8 +80,14 @@ defecto: DEFECTO TK_DOSP contenido*;
 estructuras : ESTRUCTURA ID declaracion+ FIN_ESTRUCTURA ;
 
 //declaracion de funciones
-decfuncion : FUNCION tipofuncion ID TK_PAR_IZQ parametros TK_PAR_DER HACER contenido+ RETORNAR varimpresion TK_PYC FIN_FUNCION;
-parametros : (tipofuncion ID)? (TK_COMA tipofuncion ID)*;
+decfuncion : FUNCION tipofuncion ID TK_PAR_IZQ parametros cierredecfuncion;
+cierredecfuncion : TK_PAR_DER cuerpodecfuncion;
+cuerpodecfuncion : HACER contenido* retornar;
+retornar : RETORNAR varimpresion TK_PYC FIN_FUNCION;
+parametros : tipofuncion complementoparametros?;
+complementoparametros : ID masparametros*;
+masparametros : TK_COMA tipofuncion nextid;
+nextid : ID;
 tipofuncion : BOOLEANO | ENTERO | REAL | CARACTER | CADENA;
 
 //token de palabras y simbolos reservadas

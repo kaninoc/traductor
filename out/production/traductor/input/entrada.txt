@@ -1,17 +1,17 @@
-funcion_principal
-    entero a = 0;
+funcion entero sum(entero a, real b) hacer
+    imprimir(a,b);
+    retornar a + b;
+fin_funcion
 
-    seleccionar ( a ) entre
-        caso 0 :
-            imprimir(a);
-        caso 1:
-            imprimir(a*2);
-        caso 2:
-            imprimir(a*4);
-        romper;
-        defecto:
-            si(a !=0) entonces
-                imprimir(a*5);
-            fin_si
-    fin_seleccionar
+funcion real prismaArea(entero a, real b,entero c) hacer
+    retornar a*b*c;
+fin_funcion
+
+funcion_principal
+    imprimir(sum(1,2.5),frase("mundo"),prismaArea(3,4.5,9));
 fin_principal
+
+funcion cadena frase(cadena h) hacer
+    cadena s = "hola";
+    retornar s;
+fin_funcion

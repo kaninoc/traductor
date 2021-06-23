@@ -1,18 +1,14 @@
+function sum(a : number, b : number) : number {
+	console.log(a, b);
+	return a + b;
+}
+function prismaArea(a : number, b : number, c : number) : number {
+	return a * b * c;
+}
 function funcion_principal(){
-	let a:number;
-	let a = prompt();
-	switch(a){
-		case 0 :
-			console.log(a);
-		case 1 :
-			console.log(a * 2);
-		case 2 :
-			console.log(a * 4);
-		break;
-		default:
-			if(a!=0){
-				console.log(a * 5);
-			}
-		}
-		return null;
+	console.log(sum(1,2.5), frase("mundo"), prismaArea(3,4.5,9));
+	return null;
+}function frase(h : string) : string {
+	let s:string = "hola";
+	return s;
 }

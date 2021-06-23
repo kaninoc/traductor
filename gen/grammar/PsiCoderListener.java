@@ -578,6 +578,36 @@ public interface PsiCoderListener extends ParseTreeListener {
 	 */
 	void exitDecfuncion(PsiCoderParser.DecfuncionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#cierredecfuncion}.
+	 * @param ctx the parse tree
+	 */
+	void enterCierredecfuncion(PsiCoderParser.CierredecfuncionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#cierredecfuncion}.
+	 * @param ctx the parse tree
+	 */
+	void exitCierredecfuncion(PsiCoderParser.CierredecfuncionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#cuerpodecfuncion}.
+	 * @param ctx the parse tree
+	 */
+	void enterCuerpodecfuncion(PsiCoderParser.CuerpodecfuncionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#cuerpodecfuncion}.
+	 * @param ctx the parse tree
+	 */
+	void exitCuerpodecfuncion(PsiCoderParser.CuerpodecfuncionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#retornar}.
+	 * @param ctx the parse tree
+	 */
+	void enterRetornar(PsiCoderParser.RetornarContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#retornar}.
+	 * @param ctx the parse tree
+	 */
+	void exitRetornar(PsiCoderParser.RetornarContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PsiCoderParser#parametros}.
 	 * @param ctx the parse tree
 	 */
@@ -587,6 +617,36 @@ public interface PsiCoderListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParametros(PsiCoderParser.ParametrosContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#complementoparametros}.
+	 * @param ctx the parse tree
+	 */
+	void enterComplementoparametros(PsiCoderParser.ComplementoparametrosContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#complementoparametros}.
+	 * @param ctx the parse tree
+	 */
+	void exitComplementoparametros(PsiCoderParser.ComplementoparametrosContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#masparametros}.
+	 * @param ctx the parse tree
+	 */
+	void enterMasparametros(PsiCoderParser.MasparametrosContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#masparametros}.
+	 * @param ctx the parse tree
+	 */
+	void exitMasparametros(PsiCoderParser.MasparametrosContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link PsiCoderParser#nextid}.
+	 * @param ctx the parse tree
+	 */
+	void enterNextid(PsiCoderParser.NextidContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PsiCoderParser#nextid}.
+	 * @param ctx the parse tree
+	 */
+	void exitNextid(PsiCoderParser.NextidContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PsiCoderParser#tipofuncion}.
 	 * @param ctx the parse tree
