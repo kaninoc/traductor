@@ -3,7 +3,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import java.util.Stack;
+import java.util.*;
 
 public class Traductor extends PsiCoderBaseListener {
 
@@ -16,8 +16,8 @@ public class Traductor extends PsiCoderBaseListener {
     public static String iterador = "nulo";
     public static boolean flagcase =true;
     public static boolean estructura =false;
-    public static Stack<String> elementosestructura = new Stack<>();//elementos de interfaz traduccion typescript
-    public static Stack<String> idsestructura = new Stack<>();//ids de interfaz traduccion typescript
+    public static Queue<String> elementosestructura = new LinkedList<String>();//elementos de interfaz traduccion typescript
+    public static Queue<String> idsestructura = new LinkedList<String>();//ids de interfaz traduccion typescript
 
     public String escribir(String token){//captura toda la traduccion en una cadena
         cadena = cadena+token;
@@ -105,7 +105,7 @@ public class Traductor extends PsiCoderBaseListener {
         }
         if(ctx.ID() != null){
             if(!estructura) {
-                cadena += ctx.ID().getText() + ":" + tipovariable;
+                cadena += ctx.ID().getText() + " : " + tipovariable;
             }else{
                 idsestructura.add(ctx.ID().getText());
             }
@@ -149,14 +149,24 @@ public class Traductor extends PsiCoderBaseListener {
     }
 
     @Override public void enterVarEntero(PsiCoderParser.VarEnteroContext ctx) {
+
         if(ctx.ENTERO() != null){
-            if (tipovariable.equals("nulo")){
-                cadena += calculartab(tabulaciones)+"let ";
-                tipovariable = "number";
+            if(!estructura) {
+                if (tipovariable.equals("nulo")) {
+                    cadena += calculartab(tabulaciones) + "let ";
+                    tipovariable = "number";
+                }
+            }else{
+                elementosestructura.add("number");
             }
         }
+
         if(ctx.ID() != null){
-            cadena+=ctx.ID().getText()+":"+tipovariable;
+            if(!estructura) {
+                cadena += ctx.ID().getText() + " : " + tipovariable;
+            }else{
+                idsestructura.add(ctx.ID().getText());
+            }
         }
     }
 
@@ -183,15 +193,13 @@ public class Traductor extends PsiCoderBaseListener {
 
 
     }
-    /**
-     * {@inheritDoc}
-     *
-     * <p>The default implementation does nothing.</p>
-     */
+
     @Override public void exitExtvarE(PsiCoderParser.ExtvarEContext ctx) {
         if (ctx.TK_PYC()!=null){
-            cadena+=ctx.TK_PYC().getText()+"\n";
-            tipovariable = "nulo";
+            if(!estructura) {
+                cadena += ctx.TK_PYC().getText() + "\n";
+                tipovariable = "nulo";
+            }
         }
     }
     /**
@@ -202,13 +210,22 @@ public class Traductor extends PsiCoderBaseListener {
     @Override public void enterVarReal(PsiCoderParser.VarRealContext ctx) {
 
         if(ctx.REAL() != null){
-            if (tipovariable.equals("nulo")){
-                cadena += calculartab(tabulaciones)+"let ";
-                tipovariable = "number";
+            if(!estructura) {
+                if (tipovariable.equals("nulo")) {
+                    cadena += calculartab(tabulaciones) + "let ";
+                    tipovariable = "number";
+                }
+            }else{
+                elementosestructura.add("number");
             }
         }
+
         if(ctx.ID() != null){
-            cadena+=ctx.ID().getText()+":"+tipovariable;
+            if(!estructura) {
+                cadena += ctx.ID().getText() + " : " + tipovariable;
+            }else{
+                idsestructura.add(ctx.ID().getText());
+            }
         }
 
     }
@@ -238,21 +255,33 @@ public class Traductor extends PsiCoderBaseListener {
 
     @Override public void exitExtvarR(PsiCoderParser.ExtvarRContext ctx) {
         if (ctx.TK_PYC()!=null){
-            cadena+=ctx.TK_PYC().getText()+"\n";
-            tipovariable = "nulo";
+            if(!estructura) {
+                cadena += ctx.TK_PYC().getText() + "\n";
+                tipovariable = "nulo";
+            }
         }
 
     }
 
     @Override public void enterVarCaracter(PsiCoderParser.VarCaracterContext ctx) {
+
         if(ctx.CARACTER() != null){
-            if (tipovariable.equals("nulo")){
-                cadena += calculartab(tabulaciones)+"let ";
-                tipovariable = "string";
+            if(!estructura) {
+                if (tipovariable.equals("nulo")) {
+                    cadena += calculartab(tabulaciones) + "let ";
+                    tipovariable = "string";
+                }
+            }else{
+                elementosestructura.add("string");
             }
         }
+
         if(ctx.ID() != null){
-            cadena+=ctx.ID().getText()+":"+tipovariable;
+            if(!estructura) {
+                cadena += ctx.ID().getText() + " : " + tipovariable;
+            }else{
+                idsestructura.add(ctx.ID().getText());
+            }
         }
 
     }
@@ -281,20 +310,31 @@ public class Traductor extends PsiCoderBaseListener {
 
     @Override public void exitExtvarC(PsiCoderParser.ExtvarCContext ctx) {
         if (ctx.TK_PYC()!=null){
-            cadena+=ctx.TK_PYC().getText()+"\n";
-            tipovariable = "nulo";
+            if(!estructura) {
+                cadena += ctx.TK_PYC().getText() + "\n";
+                tipovariable = "nulo";
+            }
         }
     }
 
     @Override public void enterVarCadena(PsiCoderParser.VarCadenaContext ctx) {
+
         if(ctx.CADENA() != null){
-            if (tipovariable.equals("nulo")){
-                cadena += calculartab(tabulaciones)+"let ";
-                tipovariable = "string";
+            if(!estructura) {
+                if (tipovariable.equals("nulo")) {
+                    cadena += calculartab(tabulaciones) + "let ";
+                    tipovariable = "string";
+                }
+            }else{
+                elementosestructura.add("string");
             }
         }
         if(ctx.ID() != null){
-            cadena+=ctx.ID().getText()+":"+tipovariable;
+            if(!estructura) {
+                cadena += ctx.ID().getText() + " : " + tipovariable;
+            }else{
+                idsestructura.add(ctx.ID().getText());
+            }
         }
     }
 
@@ -322,8 +362,10 @@ public class Traductor extends PsiCoderBaseListener {
 
     @Override public void exitExtvarS(PsiCoderParser.ExtvarSContext ctx) {
         if (ctx.TK_PYC()!=null){
-            cadena+=ctx.TK_PYC().getText()+"\n";
-            tipovariable = "nulo";
+            if(!estructura) {
+                cadena += ctx.TK_PYC().getText() + "\n";
+                tipovariable = "nulo";
+            }
         }
     }
 
@@ -1066,14 +1108,15 @@ public class Traductor extends PsiCoderBaseListener {
 
     @Override public void exitEstructuras(PsiCoderParser.EstructurasContext ctx) {
         if (ctx.FIN_ESTRUCTURA()!=null){
-            for (String var: elementosestructura) {
+            Queue aux = elementosestructura;
+            for (String var:elementosestructura) {
                 System.out.println(var);
             }
-            for (String var: idsestructura) {
+            for (String var:idsestructura) {
                 System.out.println(var);
             }
             while(!elementosestructura.isEmpty()){
-                cadena+=calculartab(tabulaciones)+idsestructura.pop()+" : "+elementosestructura.pop()+";\n";
+                cadena+=calculartab(tabulaciones)+idsestructura.remove()+" : "+elementosestructura.remove()+";\n";
             }
 
             tabulaciones-=1;

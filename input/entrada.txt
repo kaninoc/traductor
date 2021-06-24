@@ -1,9 +1,14 @@
 estructura C
     booleano flag;
     booleano bandera;
+    entero a;
+    real b;
+    caracter c;
+    cadena d;
 fin_estructura
 
 funcion_principal
+    booleano perfect = falso;
     Point p;
     p.x = 5;
     p.y = 10;

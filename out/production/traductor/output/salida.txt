@@ -1,6 +1,13 @@
 let C ={
-	bandera : boolean;/n	flag : boolean;/n}
+	d : boolean;
+	d : boolean;
+	d : number;
+	d : number;
+	d : string;
+	d : string;
+}
 function funcion_principal(){
+	let perfect : boolean = false;
 	let p = Point;
 	p.x = 5;
 	p.y = 10;
