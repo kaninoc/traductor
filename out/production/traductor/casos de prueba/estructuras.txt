@@ -1,0 +1,17 @@
+estructura Carro
+    booleano deportivo = falso;
+    booleano todoterreno = verdadero;
+    entero numllnatas = 4;
+    real peso = 2.9;
+    caracter tipo ='B';
+    cadena descripcion = "puede con toda clase de terreno";
+fin_estructura
+
+funcion_principal
+    real precio = 214575600.49;
+    Carro porshe;
+    porshe.deportivo = verdadero;
+    porshe.todoterreno = falso;
+    entero ab = 2019;
+    imprimir(porshe," precio",precio,"fecha ",ab);
+fin_principal

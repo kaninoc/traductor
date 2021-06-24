@@ -1,0 +1,17 @@
+funcion_principal
+    entero a = 2;
+
+    seleccionar ( a ) entre
+        caso 0 :
+            imprimir(a);
+        caso 1:
+            imprimir(a*2);
+        caso 2:
+            imprimir(a*4);
+        romper;
+        defecto:
+            si(a !=0) entonces
+                imprimir(a*5);
+            fin_si
+    fin_seleccionar
+fin_principal

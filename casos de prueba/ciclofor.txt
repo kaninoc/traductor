@@ -1,0 +1,29 @@
+funcion_principal
+    entero num1 = 4;
+    entero num2 = 6;
+    entero res;
+    entero a = 10;
+    entero punto = 100;
+    para ( entero i = 0 ; i < a ; 1 ) hacer
+    imprimir(a);
+    si ( num1 > num2 ) entonces
+           res = num1;
+        si_no
+           res = num2;
+        fin_si
+
+    fin_para
+    si ( num1 > num2 ) entonces
+    para ( entero i = 0 ; i < a; 1 ) hacer
+        imprimir(a);
+        fin_para
+    fin_si
+
+    para ( entero i = 0 ; i < a ; 1 ) hacer
+         imprimir(i);
+         para (entero j = 0; i < a ; 1 ) hacer
+            imprimir(j);
+         fin_para
+    fin_para
+
+fin_principal

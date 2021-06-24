@@ -1,18 +1,28 @@
-let C ={
-	flag : boolean;
-	bandera : boolean;
-	a : number;
-	b : number;
-	c : string;
-	d : string;
-} = {
 function funcion_principal(){
-		let perfect : boolean = false;
-		let p = Point;
-		p.x = 5;
-		p.y = 10;
-		p.c.a = 5;
-		let ab : number = 9;
-		vaca = v;
-		return null;
+	let num1 : number = 4;
+	let num2 : number = 6;
+	let res : number;
+	let a : number = 10;
+	let punto : number = 100;
+	for(let i = 0;i < a;i++){
+		console.log(a);
+		if(num1>num2){
+			res = num1;
+		}else{
+			res = num2;
+		}
+	}
+	if(num1>num2){
+		for(let i = 0;i < a;i++){
+			console.log(a);
+		}
+	}
+	for(let i = 0;i < a;i++){
+		console.log(i);
+		for(let j = 0;i < a;j++){
+			console.log(j);
+		}
+	}
+	return null;
 }
+funcion_principal();

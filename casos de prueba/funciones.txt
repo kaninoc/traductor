@@ -1,0 +1,17 @@
+funcion entero sum(entero a, real b) hacer
+    imprimir(a,b);
+    retornar a + b;
+fin_funcion
+
+funcion real prismaArea(entero a, real b,entero c) hacer
+    retornar a*b*c;
+fin_funcion
+
+funcion_principal
+    imprimir(sum(1,2.5),frase("mundo"),prismaArea(3,4.5,9));
+fin_principal
+
+funcion cadena frase(cadena h) hacer
+    cadena s = "hola";
+    retornar s;
+fin_funcion

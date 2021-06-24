@@ -46,7 +46,8 @@ public class Traductor extends PsiCoderBaseListener {
     @Override public void exitF_principal(PsiCoderParser.F_principalContext ctx) {
 
         if(ctx.FFP()!=null){
-            cadena += calculartab(tabulaciones) +"return null;\n" +"}";
+            cadena += calculartab(tabulaciones) +"return null;\n" +"}\n";
+            cadena+="funcion_principal();\n";
             tabulaciones-=1;
         }
 
@@ -1009,11 +1010,11 @@ public class Traductor extends PsiCoderBaseListener {
             if (ctx.TK_ENTERO().getText().equals("1")) {
                 cadena += iterador + "++";
             }else{
-                cadena += iterador + " += "+ctx.TK_ENTERO().getText();
+                cadena +=" += "+ctx.TK_ENTERO().getText();
             }
         }
         if (ctx.ID()!=null){
-            cadena += iterador + " += "+ctx.ID().getText();
+            cadena += ctx.ID().getText();
         }
     }
 
@@ -1147,7 +1148,7 @@ public class Traductor extends PsiCoderBaseListener {
             estructura = true;
         }
         if(ctx.ID()!=null){
-            cadena += ctx.ID().getText() + " ={\n";
+            cadena += ctx.ID().getText() + " :{\n";
         }
 
     }
@@ -1158,7 +1159,7 @@ public class Traductor extends PsiCoderBaseListener {
             aux.addAll(idsestructura);
 
             while(!elementosestructura.isEmpty()){
-                cadena+=calculartab(tabulaciones)+idsestructura.remove()+" : "+elementosestructura.remove()+";\n";
+                cadena+=calculartab(tabulaciones)+idsestructura.remove()+" : "+elementosestructura.remove()+"\n";
             }
 
             tabulaciones-=1;

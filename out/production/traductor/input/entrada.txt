@@ -1,18 +1,24 @@
-estructura C
-    booleano flag = falso;
-    booleano bandera = verdadero;
-    entero a = 10;
-    real b = 0.99;
-    caracter c ='f';
-    cadena d = "Hola mundo";
-fin_estructura
-
 funcion_principal
-    booleano perfect = falso;
-    Point p;
-    p.x = 5;
-    p.y = 10;
-    p.c.a = 5;
-    entero ab = 9;
-    vaca = v;
+    entero num1 = 6;
+    entero num2 = 4;
+    entero res;
+    si ( num1 > num2 ) entonces
+       res = num1;
+       si( res == 6 ) entonces
+            imprimir("Test if");
+        si_no
+            imprimir("Test sino");
+        fin_si
+    si_no
+       res = num2;
+    fin_si
+
+    si ( num1 > num2 ) entonces
+       res = num1;
+       si( res == 0 ) entonces
+            imprimir("Test if");
+       fin_si
+    si_no
+       res = num2;
+    fin_si
 fin_principal
