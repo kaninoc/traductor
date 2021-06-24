@@ -3,6 +3,7 @@ estructura C
     booleano bandera;
     entero a;
     real b;
+    Punto c;
     caracter c;
     cadena d;
 fin_estructura
@@ -13,4 +14,5 @@ funcion_principal
     p.x = 5;
     p.y = 10;
     p.c.a = 5;
+    vaca = v;
 fin_principal

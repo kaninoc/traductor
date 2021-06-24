@@ -371,8 +371,15 @@ public class Traductor extends PsiCoderBaseListener {
 
     @Override public void enterVarEstructura(PsiCoderParser.VarEstructuraContext ctx) {
 
-        if (ctx.ID()!=null){
-            cadena += calculartab(tabulaciones)+"let "+ctx.ID(1).getText()+" = "+ctx.ID(0).getText();
+        if(ctx.ID() != null){
+            if(!estructura) {
+                if (tipovariable.equals("nulo")) {
+                    cadena += calculartab(tabulaciones)+"let "+ctx.ID(1).getText()+" = "+ctx.ID(0).getText();
+                }
+            }else{
+                elementosestructura.add(ctx.ID(0).getText());
+                idsestructura.add(ctx.ID(1).getText());
+            }
         }
 
     }
@@ -395,9 +402,12 @@ public class Traductor extends PsiCoderBaseListener {
     }
 
     @Override public void exitExtvarEstructura(PsiCoderParser.ExtvarEstructuraContext ctx) {
+
         if (ctx.TK_PYC()!=null){
-            cadena+=ctx.TK_PYC().getText()+"\n";
-            tipovariable = "nulo";
+            if(!estructura) {
+                cadena += ctx.TK_PYC().getText() + "\n";
+                tipovariable = "nulo";
+            }
         }
 
     }

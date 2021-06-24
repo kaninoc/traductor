@@ -1,9 +1,11 @@
 let C ={
-	d : boolean;
-	d : boolean;
-	d : number;
-	d : number;
-	d : string;
+;
+	flag : boolean;
+	bandera : boolean;
+	a : number;
+	b : number;
+	c : Punto;
+	c : string;
 	d : string;
 }
 function funcion_principal(){
@@ -12,5 +14,6 @@ function funcion_principal(){
 	p.x = 5;
 	p.y = 10;
 	p.c.a = 5;
+	vaca = v;
 	return null;
 }
