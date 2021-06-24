@@ -18,6 +18,7 @@ public class Traductor extends PsiCoderBaseListener {
     public static boolean estructura =false;
     public static Queue<String> elementosestructura = new LinkedList<String>();//elementos de interfaz traduccion typescript
     public static Queue<String> idsestructura = new LinkedList<String>();//ids de interfaz traduccion typescript
+    public static Queue<String> valores = new LinkedList<String>();//valores de interfaz traduccion typescript
 
     public String escribir(String token){//captura toda la traduccion en una cadena
         cadena = cadena+token;
@@ -120,15 +121,24 @@ public class Traductor extends PsiCoderBaseListener {
     @Override public void enterExtvarB(PsiCoderParser.ExtvarBContext ctx) {
 
         if (ctx.TK_ASIG()!=null){
-            cadena+=" "+ctx.TK_ASIG().getText()+" ";
+            if(!estructura) {
+                cadena += " " + ctx.TK_ASIG().getText() + " ";
+            }
         }
         if (ctx.TK_BOOLEANO()!=null){
-            if(ctx.TK_BOOLEANO().getText().equals("verdadero")){
-                cadena+="true";
-            }else  if(ctx.TK_BOOLEANO().getText().equals("falso")){
-                cadena+="false";
+            if(!estructura) {
+                if (ctx.TK_BOOLEANO().getText().equals("verdadero")) {
+                    cadena += "true";
+                } else if (ctx.TK_BOOLEANO().getText().equals("falso")) {
+                    cadena += "false";
+                }
+            }else{
+                if (ctx.TK_BOOLEANO().getText().equals("verdadero")) {
+                    valores.add("true");
+                } else if (ctx.TK_BOOLEANO().getText().equals("falso")) {
+                    valores.add("false");
+                }
             }
-
         }
 
         if (ctx.TK_COMA()!=null){
@@ -177,13 +187,19 @@ public class Traductor extends PsiCoderBaseListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override public void enterExtvarE(PsiCoderParser.ExtvarEContext ctx) {
-        if (ctx.TK_ASIG()!=null){
-            cadena+=" "+ctx.TK_ASIG().getText()+" ";
-        }
-        if (ctx.TK_ENTERO()!=null){
-            cadena+=ctx.TK_ENTERO().getText();
-        }
 
+        if (ctx.TK_ASIG()!=null){
+            if(!estructura) {
+                cadena += " " + ctx.TK_ASIG().getText() + " ";
+            }
+        }
+        if (ctx.TK_ENTERO() != null) {
+            if(!estructura) {
+                cadena += ctx.TK_ENTERO().getText();
+            }else {
+                valores.add(ctx.TK_ENTERO().getText());
+            }
+        }
         if (ctx.TK_COMA()!=null){
             cadena+=ctx.TK_COMA().getText()+" ";
         }
@@ -239,10 +255,16 @@ public class Traductor extends PsiCoderBaseListener {
     @Override public void enterExtvarR(PsiCoderParser.ExtvarRContext ctx) {
 
         if (ctx.TK_ASIG()!=null){
-            cadena+=" "+ctx.TK_ASIG().getText()+" ";
+            if(!estructura) {
+                cadena += " " + ctx.TK_ASIG().getText() + " ";
+            }
         }
         if (ctx.TK_REAL()!=null){
-            cadena+=ctx.TK_REAL().getText();
+            if(!estructura) {
+                cadena += ctx.TK_REAL().getText();
+            }else{
+                valores.add(ctx.TK_REAL().getText());
+            }
         }
 
         if (ctx.TK_COMA()!=null){
@@ -293,11 +315,18 @@ public class Traductor extends PsiCoderBaseListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override public void enterExtvarC(PsiCoderParser.ExtvarCContext ctx) {
+
         if (ctx.TK_ASIG()!=null){
-            cadena+=" "+ctx.TK_ASIG().getText()+" ";
+            if(!estructura) {
+                cadena += " " + ctx.TK_ASIG().getText() + " ";
+            }
         }
         if (ctx.TK_CARACTER()!=null){
-            cadena+=ctx.TK_CARACTER().getText();
+            if(!estructura) {
+                cadena += ctx.TK_CARACTER().getText();
+            }else{
+                valores.add(ctx.TK_CARACTER().getText());
+            }
         }
 
         if (ctx.TK_COMA()!=null){
@@ -345,11 +374,18 @@ public class Traductor extends PsiCoderBaseListener {
      * <p>The default implementation does nothing.</p>
      */
     @Override public void enterExtvarS(PsiCoderParser.ExtvarSContext ctx) {
+
         if (ctx.TK_ASIG()!=null){
-            cadena+=" "+ctx.TK_ASIG().getText()+" ";
+            if(!estructura) {
+                cadena += " " + ctx.TK_ASIG().getText() + " ";
+            }
         }
         if (ctx.TK_CADENA()!=null){
-            cadena+=ctx.TK_CADENA().getText();
+            if(!estructura) {
+                cadena += ctx.TK_CADENA().getText();
+            }else{
+                valores.add(ctx.TK_CADENA().getText());
+            }
         }
 
         if (ctx.TK_COMA()!=null){
@@ -1118,17 +1154,20 @@ public class Traductor extends PsiCoderBaseListener {
 
     @Override public void exitEstructuras(PsiCoderParser.EstructurasContext ctx) {
         if (ctx.FIN_ESTRUCTURA()!=null){
-            Queue aux = elementosestructura;
-            for (String var:elementosestructura) {
-                System.out.println(var);
-            }
-            for (String var:idsestructura) {
-                System.out.println(var);
-            }
+            Queue<String> aux = new LinkedList<String>();
+            aux.addAll(idsestructura);
+
             while(!elementosestructura.isEmpty()){
                 cadena+=calculartab(tabulaciones)+idsestructura.remove()+" : "+elementosestructura.remove()+";\n";
             }
 
+            tabulaciones-=1;
+            cadena+="} = {\n";
+            tabulaciones+=1;
+
+            while(!valores.isEmpty()){
+                cadena+=calculartab(tabulaciones)+aux.remove()+" : "+valores.remove()+",\n";
+            }
             tabulaciones-=1;
             cadena+="}\n";
             estructura = false;

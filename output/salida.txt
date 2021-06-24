@@ -3,9 +3,15 @@ let C ={
 	bandera : boolean;
 	a : number;
 	b : number;
-	c : Punto;
 	c : string;
 	d : string;
+} = {
+	flag : false,
+	bandera : true,
+	a : 10,
+	b : 0.99,
+	c : 'f',
+	d : "Hola mundo",
 }
 function funcion_principal(){
 	let perfect : boolean = false;
@@ -13,6 +19,7 @@ function funcion_principal(){
 	p.x = 5;
 	p.y = 10;
 	p.c.a = 5;
+	let ab : number = 9;
 	vaca = v;
 	return null;
 }

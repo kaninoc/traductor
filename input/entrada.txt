@@ -1,11 +1,10 @@
 estructura C
-    booleano flag;
-    booleano bandera;
-    entero a;
-    real b;
-    Punto c;
-    caracter c;
-    cadena d;
+    booleano flag = falso;
+    booleano bandera = verdadero;
+    entero a = 10;
+    real b = 0.99;
+    caracter c ='f';
+    cadena d = "Hola mundo";
 fin_estructura
 
 funcion_principal
@@ -14,5 +13,6 @@ funcion_principal
     p.x = 5;
     p.y = 10;
     p.c.a = 5;
+    entero ab = 9;
     vaca = v;
 fin_principal
